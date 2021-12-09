@@ -17,11 +17,12 @@
       itemsPerPage: 3,
       currentPage: page,
       totalItems: totalLength }">
-        <td>{{patente.patente}}</td>
+        
+      <td>{{patente.patente}}</td>
         <td>
           <!--si apreto iniciar deberia cambiar el boton de iniciar por parar-->
           <a class="btn btn-success ml-2"  routerLink="/iniciar">Iniciar</a>
-          <a class="btn btn-warning ml-2"  routerLink="/editarPatente">Editar</a>
+          <a class="btn btn-warning ml-2" routerLink="/editar/{{patente.id}}">Editar</a>
           <a class="btn btn-danger ml-2"  (click)="eliminar(patente.id)">Eliminar</a>
         </td>
         

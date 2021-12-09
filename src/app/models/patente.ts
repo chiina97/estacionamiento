@@ -3,9 +3,11 @@ import { Usuario } from "./usuario";
 export class Patente {
     id!:number;
     patente!:String; 
-    usuario!:Usuario;
+    usuario!:{ //??
+        id:number;
+    }
     constructor(patente: string, idUser: number) {
         this.patente = patente;
-        this.usuario.id = idUser;
+        this.usuario = {id:idUser};
     }
     }

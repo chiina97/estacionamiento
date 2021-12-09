@@ -29,8 +29,8 @@ export class PatenteService {
   }
 
    //update una patente REVISAR
-   update(patente:Patente):Observable<Patente>{
-    return this.http.put<Patente>(this.patenteURL,patente);
+   update(id: number, patente: Patente):Observable<any>{
+    return this.http.put<any>(this.patenteURL+'/'+id,patente);
   }
 //elimino una patente 
   delete(id:number):Observable<Patente>{

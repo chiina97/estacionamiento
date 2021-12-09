@@ -28,11 +28,15 @@ const routes: Routes = [
       loadChildren: () => import('./pages/usuario/registrarse/registrarse.module').then(m => m.RegistrarseModule),
     },
     { path: 'login', loadChildren: () => import('./pages/usuario/login/login.module').then(m => m.LoginModule) },
-    { path: 'agregarPatente', loadChildren: () => import('./pages/patente/agregar-patente/agregar-patente.module').then(m => m.AgregarPatenteModule) },    
+    { path: 'agregarPatente', loadChildren: () => import('./pages/patente/agregar-patente/agregar-patente.module').then(m => m.AgregarPatenteModule) }, 
+    { path: 'editar/:id', loadChildren: () => import('./pages/patente/editar-patente/editar-patente.module').then(m => m.EditarPatenteModule) },   
+  
   ],
   
 },
   { path: 'estacionamiento', loadChildren: () => import('./pages/patente/listarPatentes/listarPatentes.module').then(m => m.EstacionamientoModule) },
+  { path: 'home', loadChildren: () => import('./pages/patente/editar-patente/editar-patente.module').then(m => m.EditarPatenteModule) },
+ 
   
 //si pongo una ruta que no existe me redirige igual a login
 {
