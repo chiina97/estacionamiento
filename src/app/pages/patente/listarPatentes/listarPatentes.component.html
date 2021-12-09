@@ -1,0 +1,33 @@
+<h3>Lista de patentes asociadas:</h3>
+<!--faltan todas las rutas del crud de patente por eso te redige al login-->
+<div class="form-group">
+  <a class="btn btn-primary "  routerLink="/agregarPatente">Agregar Patente</a>
+  
+</div>
+
+<table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Patente</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patente of patentes | paginate: {
+      itemsPerPage: 3,
+      currentPage: page,
+      totalItems: totalLength }">
+        <td>{{patente.patente}}</td>
+        <td>
+          <!--si apreto iniciar deberia cambiar el boton de iniciar por parar-->
+          <a class="btn btn-success ml-2"  routerLink="/iniciar">Iniciar</a>
+          <a class="btn btn-warning ml-2"  routerLink="/editarPatente">Editar</a>
+          <a class="btn btn-danger ml-2"  (click)="eliminar(patente.id)">Eliminar</a>
+        </td>
+        
+      </tr>
+    </tbody>
+  </table>
+  
+  <pagination-controls  previousLabel="Anterior"
+  nextLabel="Siguiente" (pageChange)="page = $event"></pagination-controls>
