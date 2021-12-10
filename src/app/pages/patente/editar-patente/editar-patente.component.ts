@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Patente } from 'src/app/models/patente';
+import { Usuario } from 'src/app/models/usuario';
 import { PatenteService } from 'src/app/service/patente.service';
-import { TokenService } from 'src/app/service/token.service';
+
 
 @Component({
   selector: 'app-editar-patente',
@@ -12,34 +13,33 @@ import { TokenService } from 'src/app/service/token.service';
 })
 export class EditarPatenteComponent implements OnInit {
 
+  nombreDePatente:String="";
   patente!:Patente;
-
   constructor(
     private router: Router,
     private patenteService:PatenteService,
-    private tokenService:TokenService,
     private toastr: ToastrService,
-    private activatedRoute: ActivatedRoute,
-  ) { }
+    private activatedRoute: ActivatedRoute,) { }
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.params['id'];
-    this.patenteService.get(id)
+    this.patenteService.findById(id)
     .subscribe({
       next:(data) => {
-        this.patente = data;
+        this.nombreDePatente = data.patente;
+        this.patente=data;
       },
       error:(err) => {
         this.toastr.error(err.error.mensaje, 'Error', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
         this.router.navigate(['/estacionamiento']);
-      }}
-    );
-  }
+      }});}
 
   update(): void {
     const id = this.activatedRoute.snapshot.params['id'];
+    this.patente.patente=this.nombreDePatente;
+   console.log('datos de patente',this.patente);
     this.patenteService.update(id, this.patente)
     .subscribe({
       next:(data) => {

@@ -24,7 +24,7 @@ export class PatenteService {
   }
 
   //obtener una patente
-  get(id:number):Observable<Patente>{
+  findById(id:number):Observable<Patente>{
     return this.http.get<Patente>(this.patenteURL+'/'+id);
   }
 
