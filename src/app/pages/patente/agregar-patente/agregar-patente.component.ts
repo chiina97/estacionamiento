@@ -30,18 +30,17 @@ export class AgregarPatenteComponent implements OnInit {
 
     this.patenteService.create(patente)
     .subscribe({
-      next:(res)=>{
+      next:()=>{
         this.toastr.success('', 'La patente se creo correctamente!', {
           timeOut: 3000, positionClass: 'toast-top-center'
         }); 
         this.router.navigate(['/estacionamiento'])
       },
       error: (err) => {
-        for(let e of err.error.errors){
-          this.toastr.error(e, 'Error', {
+          this.toastr.error(err.error.errors[0], 'Error', {
             timeOut: 3000,  positionClass: 'toast-top-center',
           });
-        }
+          window.location.reload(); 
       }
         });
    }

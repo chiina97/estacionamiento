@@ -54,7 +54,7 @@ export class EditarPatenteComponent implements OnInit {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
       }
-      
+      window.location.reload(); 
       }
     });
   }

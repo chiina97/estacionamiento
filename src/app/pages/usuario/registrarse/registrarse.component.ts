@@ -35,8 +35,7 @@ export class RegistrarseComponent implements OnInit {
   create():void{
    this.usuarioService.create(this.usuario)
    .subscribe({
-    next: (res) => {
-    
+    next: () => {
     this.toastr.success('Por favor inicie sesión', 'Cuenta creada!', {
       timeOut: 3000, positionClass: 'toast-top-center'
     }); 
@@ -44,7 +43,6 @@ export class RegistrarseComponent implements OnInit {
    },
    error: (err) => {
     this.errMsj = err.error.mensaje;
-    console.log(err.error.mensaje);
     this.toastr.error(this.errMsj, 'Error', {
       timeOut: 3000,  positionClass: 'toast-top-center',
     });
