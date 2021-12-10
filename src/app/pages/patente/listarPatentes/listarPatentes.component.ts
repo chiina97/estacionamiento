@@ -14,6 +14,7 @@ export class EstacionamientoComponent implements OnInit {
 
   patentes:Patente[]=[];
   isAdmin=false;
+  importe=0;
 
   totalLength:any;
   page:number=1;

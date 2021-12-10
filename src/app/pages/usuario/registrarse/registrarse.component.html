@@ -7,7 +7,7 @@
             <div class="card-header card text-white bg-primary mb-3">Registrarse</div>
             <div class="card-body">
               <!-- The formGroup 'form' is defined in the component class -->
-              <form >
+              <form #quizForm='ngForm'>
                 <div class="form-group">
                   <label for="mail">Correo</label>
                   <!-- The formControlName defines the name of the field in the formGroup -->
@@ -47,7 +47,8 @@
                 <!-- The button has a click handler, it will be disabled if the form is not valid -->
                 <button 
                 (click)="create()" 
-                type="submit" 
+                type="submit"
+                [disabled] = '!quizForm.form.valid' 
                 class="btn btn-success">
                  Registrarse  
                 </button>

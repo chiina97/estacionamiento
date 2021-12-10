@@ -14,7 +14,7 @@ export class AgregarPatenteComponent implements OnInit {
 
   nombrePatente!:string;
   userId!:number;
-  errMsj!: string;
+ 
 
   constructor(
     private readonly router: Router,
@@ -40,7 +40,7 @@ export class AgregarPatenteComponent implements OnInit {
           this.toastr.error(err.error.errors[0], 'Error', {
             timeOut: 3000,  positionClass: 'toast-top-center',
           });
-          window.location.reload(); 
+         // window.location.reload(); 
       }
         });
    }

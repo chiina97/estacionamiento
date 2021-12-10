@@ -7,7 +7,7 @@
             <div class="card-header card text-white bg-primary mb-3">Editar Patente</div>
             <div class="card-body">
               <!-- The formGroup 'form' is defined in the component class -->
-              <form >
+              <form #quizForm='ngForm'>
                 <div class="form-group">
                   <label for="patente">Patente</label>
                   <!-- The formControlName defines the name of the field in the formGroup -->
@@ -32,6 +32,7 @@
                 <button 
                 (click)="update()" 
                 type="submit" 
+                [disabled] = '!quizForm.form.valid'
                 class="btn btn-success ml-2">
                  Editar  
                 </button>

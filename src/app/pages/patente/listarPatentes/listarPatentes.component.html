@@ -10,6 +10,7 @@
       <tr>
         <th scope="col">Patente</th>
         <th scope="col">Acciones</th>
+        <th scope="col">Importe</th>
       </tr>
     </thead>
     <tbody>
@@ -21,11 +22,11 @@
       <td>{{patente.patente}}</td>
         <td>
           <!--si apreto iniciar deberia cambiar el boton de iniciar por parar-->
-          <a class="btn btn-success ml-2"  routerLink="/iniciar">Iniciar</a>
+          <a class="btn btn-success ml-2"  id="{{patente.id}}">Iniciar</a>
           <a class="btn btn-warning ml-2" [routerLink]="['/editar', patente.id ]">Editar</a>
           <a class="btn btn-danger ml-2"  (click)="eliminar(patente.id)">Eliminar</a>
         </td>
-        
+        <td>{{importe}}</td>
       </tr>
     </tbody>
   </table>
