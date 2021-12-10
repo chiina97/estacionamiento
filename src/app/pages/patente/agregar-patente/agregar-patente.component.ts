@@ -37,12 +37,12 @@ export class AgregarPatenteComponent implements OnInit {
         this.router.navigate(['/estacionamiento'])
       },
       error: (err) => {
-        this.errMsj = err.error.mensaje;
-        console.log(err.error.mensaje);
-        this.toastr.error(this.errMsj, 'Error', {
+        for(let e of err.error.errors){
+          this.toastr.error(e, 'Error', {
             timeOut: 3000,  positionClass: 'toast-top-center',
           });
         }
+      }
         });
    }
 

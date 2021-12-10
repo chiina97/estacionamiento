@@ -30,6 +30,7 @@ export class EditarPatenteComponent implements OnInit {
         this.patente=data;
       },
       error:(err) => {
+        console.log('onInt',err);
         this.toastr.error(err.error.mensaje, 'Error', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
@@ -39,19 +40,21 @@ export class EditarPatenteComponent implements OnInit {
   update(): void {
     const id = this.activatedRoute.snapshot.params['id'];
     this.patente.patente=this.nombreDePatente;
-   console.log('datos de patente',this.patente);
     this.patenteService.update(id, this.patente)
     .subscribe({
-      next:(data) => {
+      next:() => {
         this.toastr.success('', 'Patente Actualizada', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
         this.router.navigate(['/estacionamiento']);
       },
       error:(err) => {
-        this.toastr.error(err.error.mensaje, 'Error', {
+        for(let e of err.error.errors){
+        this.toastr.error(e, 'Error', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
+      }
+      
       }
     });
   }
