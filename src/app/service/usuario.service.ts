@@ -31,8 +31,8 @@ export class UsuarioService {
   }
 
    //update crea un usuario
-   update(usuario:Usuario):Observable<Usuario>{
-    return this.http.put<Usuario>(this.authURL,usuario);
+   update(id: number,usuario:Usuario):Observable<any>{
+    return this.http.put<any>(this.authURL+"/"+id,usuario);
   }
 //MODIFICADO POR EL TOKEN
   autenticar(usuario:any):Observable<JwtDTO>{ //REVISAR SI HACE FALTA ENVIAR usuario:loginDTO

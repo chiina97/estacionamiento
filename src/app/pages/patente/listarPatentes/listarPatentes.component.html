@@ -22,11 +22,16 @@
       <td>{{patente.patente}}</td>
         <td>
           <!--si apreto iniciar deberia cambiar el boton de iniciar por parar-->
-          <a class="btn btn-success ml-2"  id="{{patente.id}}">Iniciar</a>
+            <a *ngIf="!yaInicio" class="btn btn-success ml-2"   (click)="iniciar()">Iniciar</a>
+            <a *ngIf="yaInicio" class="btn btn-dark ml-2" (click)="detener()">Detener</a>
+        
           <a class="btn btn-warning ml-2" [routerLink]="['/editar', patente.id ]">Editar</a>
           <a class="btn btn-danger ml-2"  (click)="eliminar(patente.id)">Eliminar</a>
         </td>
-        <td>{{importe}}</td>
+        <td>
+          {{importe}}
+          <button class="btn btn-primary ml-2" (click)="pagar()" [disabled]="isDisabled">Pagar</button>
+         </td>
       </tr>
     </tbody>
   </table>

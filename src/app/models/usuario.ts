@@ -3,6 +3,9 @@ id!:number;
 clave!:String;
 mail!:String;
 telefono!:String; 
-//authorities!:string[]; //rol
-
+cuentaCorriente!:{//revisar
+    id:number;
+    telefono:number;
+    saldo:number;
+}
 }
