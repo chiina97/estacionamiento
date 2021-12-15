@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Ciudad } from 'src/app/models/ciudad';
 import { Patente } from 'src/app/models/patente';
@@ -20,6 +20,7 @@ export class EstacionamientoComponent implements OnInit {
   patentes:Patente[]=[];
   ciudad!:Ciudad;
   usuario!:Usuario;
+  saldo!:number;
   
   importe=0;
   yaInicio=false;
@@ -44,14 +45,23 @@ export class EstacionamientoComponent implements OnInit {
  
   
   ngOnInit(): void { 
-    this.listarPatentes();
+    this.obtenerInfoUsuario();
     this.obtenerInfoCiudad();
+    this.listarPatentes();
+    this.mostrarSaldo(); 
   }
 
   iniciar():void{
-    //si el saldo de la cuenta corriente es mayor a 10 puedo iniciar
-    this.yaInicio=true;
-    this.timeInicio= this.today.getHours();
+    //si el saldo de la cuenta corriente es mayor a 10(valor por hs) puedo iniciar
+    if(this.saldo>this.valorPorHs){
+       this.yaInicio=true;
+       this.timeInicio= this.today.getHours();
+    }
+    else{
+      this.toastr.error('El saldo disponible es insuficiente', 'Error', {
+        timeOut: 3000, positionClass: 'toast-top-center',
+      });
+    }
   }
 
   detener():void{
@@ -67,20 +77,29 @@ export class EstacionamientoComponent implements OnInit {
     }
   }
 
+
+  mostrarSaldo():void{
+    this.usuarioService.get(this.tokenService.getIdUser())
+    .subscribe(
+      data=>{    
+        this.saldo=data.cuentaCorriente.saldo;
+      }
+    )
+  }
+
   pagar():void{
     this.yaInicio=false;
-    this.importe=0;
     this.isDisabled=true;
-    //cuentaCorriente.saldo=cuentaCorriente.saldo-importe
-  //  this.actualizarSaldo();
+    this.usuario.cuentaCorriente.saldo=this.usuario.cuentaCorriente.saldo-this.importe;
+    this.actualizarSaldo();
+    this.importe=0;
+    window.location.reload();
   }
 
   actualizarSaldo(){;
     this.usuarioService.update(this.tokenService.getIdUser(), this.usuario)
     .subscribe({
-      next:(data) => {
-       // data.saldo=data.saldo-this.importe;
-       // console.log('data.saldo',data.saldo);
+      next:() => {
         this.toastr.success('', 'Pago acreditado!', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
@@ -89,6 +108,14 @@ export class EstacionamientoComponent implements OnInit {
     });
   }
 
+  obtenerInfoUsuario(){
+    this.usuarioService.get(this.tokenService.getIdUser())
+    .subscribe(
+      data =>{
+        this.usuario=data;
+      }
+    );
+  }
   obtenerInfoCiudad(){
     this.ciudadService.getDataCiudad()
     .subscribe(

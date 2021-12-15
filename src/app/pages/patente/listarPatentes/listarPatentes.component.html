@@ -11,18 +11,20 @@
         <th scope="col">Patente</th>
         <th scope="col">Acciones</th>
         <th scope="col">Importe</th>
+        <th scope="col">Saldo disponible</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let patente of patentes | paginate: {
       itemsPerPage: 3,
       currentPage: page,
-      totalItems: totalLength }">
+      totalItems: totalLength }"
+      >
         
       <td>{{patente.patente}}</td>
         <td>
-          <!--si apreto iniciar deberia cambiar el boton de iniciar por parar-->
-            <a *ngIf="!yaInicio" class="btn btn-success ml-2"   (click)="iniciar()">Iniciar</a>
+          <!--si selecciono iniciar cambia el boton de iniciar por detener-->
+            <a  *ngIf="!yaInicio" class="btn btn-success ml-2"   (click)="iniciar()">Iniciar</a>
             <a *ngIf="yaInicio" class="btn btn-dark ml-2" (click)="detener()">Detener</a>
         
           <a class="btn btn-warning ml-2" [routerLink]="['/editar', patente.id ]">Editar</a>
@@ -30,7 +32,11 @@
         </td>
         <td>
           {{importe}}
+          <!--tambien le falta una key al boton-->
           <button class="btn btn-primary ml-2" (click)="pagar()" [disabled]="isDisabled">Pagar</button>
+         </td>
+         <td>
+           {{saldo}}
          </td>
       </tr>
     </tbody>
