@@ -24,8 +24,9 @@
       <td>{{patente.patente}}</td>
         <td>
           <!--si selecciono iniciar cambia el boton de iniciar por detener-->
-            <a  *ngIf="!yaInicio" class="btn btn-success ml-2"   (click)="iniciar()">Iniciar</a>
-            <a *ngIf="yaInicio" class="btn btn-dark ml-2" (click)="detener()">Detener</a>
+            <a *ngIf="!patente.inicioEstacionamiento" class="btn btn-success ml-2"   (click)="iniciar(patente)">Iniciar</a>
+            <button *ngIf="patente.inicioEstacionamiento" class="btn btn-dark ml-2" (click)="detener()"
+            [disabled]="detenerIsDisabled">Detener</button>
         
           <a class="btn btn-warning ml-2" [routerLink]="['/editar', patente.id ]">Editar</a>
           <a class="btn btn-danger ml-2"  (click)="eliminar(patente.id)">Eliminar</a>
@@ -33,10 +34,11 @@
         <td>
           {{importe}}
           <!--tambien le falta una key al boton-->
-          <button class="btn btn-primary ml-2" (click)="pagar()" [disabled]="isDisabled">Pagar</button>
+          <button class="btn btn-primary ml-2" (click)="pagar(patente)" [disabled]="isDisabled">Pagar</button>
          </td>
          <td>
            {{saldo}}
+      
          </td>
       </tr>
     </tbody>

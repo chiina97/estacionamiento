@@ -6,8 +6,10 @@ import { CiudadService } from 'src/app/service/ciudad.service';
 import { PatenteService } from 'src/app/service/patente.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
 import { TokenService } from 'src/app/service/token.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario';
+import { EstacionamientoData } from 'src/app/models/estacionamiento-data';
+import { EstacionamientoDataService } from 'src/app/service/estacionamiento-data.service';
 
 
 
@@ -19,13 +21,16 @@ export class EstacionamientoComponent implements OnInit {
 
   patentes:Patente[]=[];
   ciudad!:Ciudad;
+  estacionamiento!:EstacionamientoData;
   usuario!:Usuario;
   saldo!:number;
   
   importe=0;
-  yaInicio=false;
   valorPorHs!:number;
   isDisabled=true;
+  nombrePatente!:String;
+  estacionamientoId!:number;
+  detenerIsDisabled!:boolean;
 
   totalLength:any;
   page:number=1;
@@ -37,11 +42,15 @@ export class EstacionamientoComponent implements OnInit {
     private patenteService:PatenteService,
     private ciudadService:CiudadService,
     private usuarioService:UsuarioService,
+    private estacionamientoService:EstacionamientoDataService,
     private toastr: ToastrService,
     private tokenService:TokenService,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
-    ) { }
+    ) {
+     /*const userId=(Number(this.tokenService.getIdUser()));
+     this.estacionamiento = new EstacionamientoData(0,0,"",userId);
+     */
+     }
  
   
   ngOnInit(): void { 
@@ -51,11 +60,14 @@ export class EstacionamientoComponent implements OnInit {
     this.mostrarSaldo(); 
   }
 
-  iniciar():void{
+  iniciar(patente:Patente):void{
     //si el saldo de la cuenta corriente es mayor a 10(valor por hs) puedo iniciar
     if(this.saldo>this.valorPorHs){
-       this.yaInicio=true;
+       this.updatePatente(patente,true);//cambie inicioEstacionamiento=true
        this.timeInicio= this.today.getHours();
+       this.nombrePatente=patente.patente;
+      this.saveEstacionamientoData();//guardo datos del estacionamiento en el backend
+
     }
     else{
       this.toastr.error('El saldo disponible es insuficiente', 'Error', {
@@ -63,19 +75,66 @@ export class EstacionamientoComponent implements OnInit {
       });
     }
   }
+  saveEstacionamientoData():void{
+    const userId=Number(this.tokenService.getIdUser());
+    //horaFin de momento es 0 cuando selecciono "detener" edita la horaFin
+   this.estacionamiento = new EstacionamientoData(this.timeInicio,0,this.nombrePatente,userId);
+/*
+   this.estacionamiento.horarioInicio=this.timeInicio;
+   this.estacionamiento.patente=this.nombrePatente;*/
 
-  detener():void{
-    this.isDisabled=false;
-    this.timeFin=this.today.getHours() 
+    this.estacionamientoService.create(this.estacionamiento)
+    .subscribe({
+      next:(data)=>{
+        //guardo bien los datos
+        this.estacionamiento=data;
+        this.estacionamientoId=this.estacionamiento.id;
+        console.log('datos del estacionamiento guardado:',this.estacionamiento);
+      }
+    });
+};
+updateEstacionamiendoData():void{
+  //this.estacionamiento es undefined
+  console.log('this.estacionamiento del metodo update',this.estacionamiento);
+  console.log('idEstacionamiento metodo update',this.estacionamientoId);
+  this.estacionamiento.horarioFin=this.timeFin;
+  this.estacionamientoService.update(this.estacionamientoId,this.estacionamiento)
+  .subscribe();
+}
+
+  updatePatente(patente:Patente,valor:boolean){
+    let patenteAux=new Patente(patente.patente,patente.usuario.id);
+    patenteAux.id=patente.id;
+    patenteAux.inicioEstacionamiento=valor;
+    this.patenteService.update(patente.id,patenteAux)
+    .subscribe({
+      next:()=>{
+      window.location.reload();
+      }
+    })
+  }
+
   
-    this.importe=this.timeFin-this.timeInicio;
+  detener():void{
+    //console log de this.estacionamiento devuelve undefined;
+    console.log('metodo detener',this.estacionamiento);
+    this.isDisabled=false;
+    this.detenerIsDisabled=true;
+    this.timeFin=this.today.getHours() 
+    this.updateEstacionamiendoData();//seteo el valor del horarioFin
+    this.importe=this.estacionamiento.horarioFin-this.estacionamiento.horarioInicio;
+    console.log(this.estacionamiento);
+  
     if(this.importe==0){ //es decir,si estuve menos de 1 hs se le cobra la hora completa
        this.importe=this.valorPorHs;
+      
     }
     else{
-      this.importe=this.importe*this.valorPorHs;
+      this.importe=this.importe*this.valorPorHs;  
     }
-  }
+   }
+
+  
 
 
   mostrarSaldo():void{
@@ -87,13 +146,15 @@ export class EstacionamientoComponent implements OnInit {
     )
   }
 
-  pagar():void{
-    this.yaInicio=false;
+  pagar(patente:Patente):void{
+    this.detenerIsDisabled=false;
     this.isDisabled=true;
     this.usuario.cuentaCorriente.saldo=this.usuario.cuentaCorriente.saldo-this.importe;
     this.actualizarSaldo();
     this.importe=0;
+    this.updatePatente(patente,false);
     window.location.reload();
+
   }
 
   actualizarSaldo(){;

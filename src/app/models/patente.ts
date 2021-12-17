@@ -1,4 +1,3 @@
-import { Usuario } from "./usuario";
 
 export class Patente {
     id!:number;
@@ -6,7 +5,9 @@ export class Patente {
     usuario!:{ //??
         id:number;
     }
-    constructor(patente: string, idUser: number) {
+    inicioEstacionamiento!:boolean;
+    constructor(patente: String, idUser: number) {
+        this.inicioEstacionamiento=false;
         this.patente = patente;
         this.usuario = {id:idUser};
     }
