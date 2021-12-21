@@ -15,9 +15,9 @@ export class EstacionamientoDataService {
     return this.http.post<EstacionamientoData>(this.estacionamientoURL,estacionamiento);
   }
 
- 
-  findById(id:number):Observable<EstacionamientoData>{
-    return this.http.get<EstacionamientoData>(this.estacionamientoURL+'/'+id);
+
+  findByIdPatente(id:number):Observable<EstacionamientoData>{
+    return this.http.get<EstacionamientoData>(this.estacionamientoURL+'/patente/'+id);
   }
 
    update(id: number, estacionamiento: EstacionamientoData):Observable<any>{

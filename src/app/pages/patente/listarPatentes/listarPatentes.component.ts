@@ -25,7 +25,6 @@ export class EstacionamientoComponent implements OnInit {
   usuario!:Usuario;
   saldo!:number;
   
-  importe=0;
   valorPorHs!:number;
   isDisabled=true;
   nombrePatente!:String;
@@ -47,9 +46,7 @@ export class EstacionamientoComponent implements OnInit {
     private tokenService:TokenService,
     private router: Router,
     ) {
-     /*const userId=(Number(this.tokenService.getIdUser()));
-     this.estacionamiento = new EstacionamientoData(0,0,"",userId);
-     */
+     
      }
  
   
@@ -66,7 +63,7 @@ export class EstacionamientoComponent implements OnInit {
        this.updatePatente(patente,true);//cambie inicioEstacionamiento=true
        this.timeInicio= this.today.getHours();
        this.nombrePatente=patente.patente;
-      this.saveEstacionamientoData();//guardo datos del estacionamiento en el backend
+      this.saveEstacionamientoData(patente);//guardo datos del estacionamiento en el backend
 
     }
     else{
@@ -75,33 +72,6 @@ export class EstacionamientoComponent implements OnInit {
       });
     }
   }
-  saveEstacionamientoData():void{
-    const userId=Number(this.tokenService.getIdUser());
-    //horaFin de momento es 0 cuando selecciono "detener" edita la horaFin
-   this.estacionamiento = new EstacionamientoData(this.timeInicio,0,this.nombrePatente,userId);
-/*
-   this.estacionamiento.horarioInicio=this.timeInicio;
-   this.estacionamiento.patente=this.nombrePatente;*/
-
-    this.estacionamientoService.create(this.estacionamiento)
-    .subscribe({
-      next:(data)=>{
-        //guardo bien los datos
-        this.estacionamiento=data;
-        this.estacionamientoId=this.estacionamiento.id;
-        console.log('datos del estacionamiento guardado:',this.estacionamiento);
-      }
-    });
-};
-updateEstacionamiendoData():void{
-  //this.estacionamiento es undefined
-  console.log('this.estacionamiento del metodo update',this.estacionamiento);
-  console.log('idEstacionamiento metodo update',this.estacionamientoId);
-  this.estacionamiento.horarioFin=this.timeFin;
-  this.estacionamientoService.update(this.estacionamientoId,this.estacionamiento)
-  .subscribe();
-}
-
   updatePatente(patente:Patente,valor:boolean){
     let patenteAux=new Patente(patente.patente,patente.usuario.id);
     patenteAux.id=patente.id;
@@ -114,27 +84,67 @@ updateEstacionamiendoData():void{
     })
   }
 
-  
-  detener():void{
-    //console log de this.estacionamiento devuelve undefined;
-    console.log('metodo detener',this.estacionamiento);
-    this.isDisabled=false;
-    this.detenerIsDisabled=true;
-    this.timeFin=this.today.getHours() 
-    this.updateEstacionamiendoData();//seteo el valor del horarioFin
-    this.importe=this.estacionamiento.horarioFin-this.estacionamiento.horarioInicio;
-    console.log(this.estacionamiento);
-  
-    if(this.importe==0){ //es decir,si estuve menos de 1 hs se le cobra la hora completa
-       this.importe=this.valorPorHs;
-      
-    }
-    else{
-      this.importe=this.importe*this.valorPorHs;  
-    }
-   }
+  saveEstacionamientoData(patente:Patente):void{
+    const userId=Number(this.tokenService.getIdUser());
+    //horaFin de momento es 0 cuando selecciono "detener" edita la horaFin
+   this.estacionamiento = new EstacionamientoData(this.timeInicio,0,patente.id,userId);
+    this.estacionamientoService.create(this.estacionamiento)
+    .subscribe({
+      next:(data)=>{
+        //guardo bien los datos
+        this.estacionamiento=data;
+        this.estacionamientoId=this.estacionamiento.id;
+        console.log('datos del estacionamiento guardado:',this.estacionamiento);
+      }
+    });
+};
+
+ 
 
   
+  detener(patente:Patente):void{
+    //console log de this.estacionamiento devuelve undefined;
+    this.findByIdPatente(patente.id);
+    this.isDisabled=false;
+    if(patente.inicioEstacionamiento==true){//esta parte no esta bien
+      this.detenerIsDisabled=true;
+    }
+
+  }
+
+   findByIdPatente(id:number){
+    this.estacionamientoService.findByIdPatente(id)
+    .subscribe({
+      next:(data)=>{
+        console.log('estoy en el metodo findByPatente')
+        this.estacionamiento=data;
+        console.log('this.estacionamiento',this.estacionamiento);
+        this.estacionamientoId=data.id;
+        console.log('this.estacionamientoId',this.estacionamientoId);
+        this.updateEstacionamiendoData();//seteo el valor del horarioFin
+      },
+      error:(err)=>{
+        console.log('err',err.error);
+      }}
+    )
+   }
+
+   updateEstacionamiendoData():void{
+    this.timeFin=this.today.getHours();
+    this.estacionamiento.horarioFin=this.timeFin;
+    this.estacionamiento.importe=this.estacionamiento.horarioFin-this.estacionamiento.horarioInicio;
+  
+    this.estacionamientoService.update(this.estacionamientoId,this.estacionamiento)
+    .subscribe();
+
+
+    if(this.estacionamiento.importe==0){ //es decir,si estuve menos de 1 hs se le cobra la hora completa
+      this.estacionamiento.importe=this.valorPorHs;
+   }
+   else{
+     this.estacionamiento.importe=this.estacionamiento.importe*this.valorPorHs;  
+   }
+  }
 
 
   mostrarSaldo():void{
@@ -149,10 +159,10 @@ updateEstacionamiendoData():void{
   pagar(patente:Patente):void{
     this.detenerIsDisabled=false;
     this.isDisabled=true;
-    this.usuario.cuentaCorriente.saldo=this.usuario.cuentaCorriente.saldo-this.importe;
-    this.actualizarSaldo();
-    this.importe=0;
-    this.updatePatente(patente,false);
+    this.usuario.cuentaCorriente.saldo=this.usuario.cuentaCorriente.saldo-this.estacionamiento.importe;
+    this.actualizarSaldo();//descuento el importe de la cuenta corriente
+    this.estacionamiento.importe=0;//el importe a pagar ahora es 0
+    this.updatePatente(patente,false); //inicioEstacionamiento=false
     window.location.reload();
 
   }

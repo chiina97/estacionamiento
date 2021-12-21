@@ -6,6 +6,7 @@ export class Patente {
         id:number;
     }
     inicioEstacionamiento!:boolean;
+    
     constructor(patente: String, idUser: number) {
         this.inicioEstacionamiento=false;
         this.patente = patente;
