@@ -9,12 +9,14 @@ export class EstacionamientoData {
         id:number;
     }
     importe!:number;
+    inicioEstacionamiento!:boolean;
     constructor(horaInicio:number,horaFin:number,idPatente:number, idUser: number) {
         this.horarioInicio=horaInicio;
         this.horarioFin=horaFin;
         this.patente ={id:idPatente}
         this.usuario = {id:idUser};
         this.importe=0;
+        this.inicioEstacionamiento=true;
     }
    
 }
