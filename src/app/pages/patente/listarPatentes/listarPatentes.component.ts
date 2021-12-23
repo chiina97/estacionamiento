@@ -24,12 +24,11 @@ export class EstacionamientoComponent implements OnInit {
   ciudad!:Ciudad;
   estacionamiento!:EstacionamientoData;
   usuario!:Usuario;
+
   saldo!:number;
-  
+ 
   
   valorPorHs!:number;
-  isDisabled=true;
-  nombrePatente!:String;
   estacionamientoId!:number;
   detenerIsDisabled!:boolean;
 
@@ -63,10 +62,10 @@ export class EstacionamientoComponent implements OnInit {
   iniciar(patente:Patente):void{
     //si el saldo de la cuenta corriente es mayor a 10(valor por hs) puedo iniciar
     if(this.saldo>this.valorPorHs){
+      
       if((this.estacionamiento==undefined)||(this.estacionamiento.inicioEstacionamiento==false)){
         console.log('find en el iniciar',this.estacionamiento);
         this.timeInicio= this.today.getHours();
-        this.nombrePatente=patente.patente;
        this.saveEstacionamientoData(patente);//guardo datos del estacionamiento en el backend
       }
       else{
@@ -96,6 +95,7 @@ export class EstacionamientoComponent implements OnInit {
         //guardo bien los datos
         this.estacionamiento=data;
         this.estacionamientoId=this.estacionamiento.id;
+        
         console.log('datos del estacionamiento guardado:',this.estacionamiento);
       }
     });
@@ -106,20 +106,23 @@ export class EstacionamientoComponent implements OnInit {
   
   detener(patente:Patente):void{
     //console log de this.estacionamiento devuelve undefined;
-    this.findByIdPatente(patente.id);
-    this.isDisabled=false; 
+    this.findByPatenteIniciada(patente.patente);
+   
   }
-    findByIdPatente(id:number){
-    this.estacionamientoService.findByIdPatente(id)
+    findByPatenteIniciada(patente:String){
+    this.estacionamientoService.findByPatenteIniciada(patente)
     .subscribe({
       next:(data)=>{
         this.estacionamiento=data;
         this.estacionamientoId=data.id;
+       //llamo al actualizar acá para que se ejecute en orden
         this.updateEstacionamiendoData();//seteo el valor del horarioFin
         console.log('this.estacionamiento del metodo findByPatente',this.estacionamiento);
       }
      })
    }
+
+   
 
    updateEstacionamiendoData():void{
     this.timeFin=this.today.getHours();
@@ -137,7 +140,8 @@ export class EstacionamientoComponent implements OnInit {
     .subscribe(
       data=>{
       this.actualizarSaldo()
-      window.location.reload();
+      setInterval(()=> window.location.reload(),2000)
+      
       console.log('updateEstacionamiento',this.estacionamiento);
     
     }

@@ -16,8 +16,8 @@ export class EstacionamientoDataService {
   }
 
 
-  findByIdPatente(id:number):Observable<EstacionamientoData>{
-    return this.http.get<EstacionamientoData>(this.estacionamientoURL+'/patente/'+id);
+  findByPatenteIniciada(patente:String):Observable<EstacionamientoData>{
+    return this.http.get<EstacionamientoData>(this.estacionamientoURL+'/patente/'+patente);
   }
 
 

@@ -24,20 +24,20 @@
       <td>{{patente.patente}}</td>
         <td>
           <!--si selecciono iniciar cambia el boton de iniciar por detener-->
-            <button  class="btn btn-success ml-2"   (click)="iniciar(patente)" >
+            <button  *ngIf="(estacionamiento?.inicioEstacionamiento==undefined )|| (estacionamiento?.inicioEstacionamiento==false && estacionamiento?.patente?.id==patente.id)" class="btn btn-success ml-2"   (click)="iniciar(patente)" >
               Iniciar
             </button>
             <button class="btn btn-dark ml-2" (click)="detener(patente)"
-            [disabled]="detenerIsDisabled">Detener</button>
+            *ngIf="estacionamiento?.inicioEstacionamiento==true && estacionamiento?.patente?.id==patente.id">Detener</button>
         
           <a class="btn btn-warning ml-2" [routerLink]="['/editar', patente.id ]">Editar</a>
           <a class="btn btn-danger ml-2"  (click)="eliminar(patente.id)">Eliminar</a>
         </td>
         <td>
-          <div *ngIf="estacionamiento==undefined">
+          <div *ngIf="estacionamiento?.inicioEstacionamiento==undefined || estacionamiento?.inicioEstacionamiento==false && estacionamiento?.patente?.id==patente.id">
               -
          </div>
-         <div *ngIf="estacionamiento!=undefined">
+         <div *ngIf="estacionamiento?.inicioEstacionamiento==true && estacionamiento?.patente?.id==patente.id">
           {{estacionamiento?.importe}}
          </div>
          </td>
