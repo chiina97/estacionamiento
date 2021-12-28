@@ -26,18 +26,18 @@ export class EstacionamientoComponent implements OnInit {
   usuario!:Usuario;
 
   saldo!:number;
+  inicioEstacionamiento!:boolean;
  
   
   valorPorHs!:number;
   estacionamientoId!:number;
-  detenerIsDisabled!:boolean;
-
+ 
+  //paginado:
   totalLength:any;
   page:number=1;
   today = new Date();
-  timeInicio!:number;
-  timeFin!:number;
-
+  
+  
   constructor(
     private patenteService:PatenteService,
     private ciudadService:CiudadService,
@@ -56,98 +56,101 @@ export class EstacionamientoComponent implements OnInit {
     this.obtenerInfoCiudad();
     this.listarPatentes();
     this.mostrarSaldo(); 
+    this.verificarInicioEstacionamiento();
   }
 
+  verificarInicioEstacionamiento(){
+    const userId=Number(this.tokenService.getIdUser());
+    this.estacionamientoService.getEstado(userId)
+    .subscribe(data=>{
+      this.inicioEstacionamiento=data;
+    });
+  }
   
   iniciar(patente:Patente):void{
-    //si el saldo de la cuenta corriente es mayor a 10(valor por hs) puedo iniciar
-    if(this.saldo>this.valorPorHs){
-      
-      if((this.estacionamiento==undefined)||(this.estacionamiento.inicioEstacionamiento==false)){
-        console.log('find en el iniciar',this.estacionamiento);
-        this.timeInicio= this.today.getHours();
-       this.saveEstacionamientoData(patente);//guardo datos del estacionamiento en el backend
-      }
-      else{
-        this.toastr.error('No puede iniciar el estacionamiento de más de una patente a la vez', 'Error', {
-          timeOut: 3000, positionClass: 'toast-top-center',
-        });
-      }
-      
-
+    if(this.saldo>this.ciudad.valorPorHs){
+     
+        this.saveEstacionamientoData(patente);//guardo datos del estacionamiento en el backend
+  
+     
     }
     else{
-      this.toastr.error('El saldo disponible es insuficiente', 'Error', {
-        timeOut: 3000, positionClass: 'toast-top-center',
+      this.toastr.error('El saldo de su cuenta es insuficiente', 'Error', {
+        timeOut: 3000,  positionClass: 'toast-top-center',
       });
     }
+    
+
   }
 
 
   saveEstacionamientoData(patente:Patente):void{
+    let today = new Date();
     const userId=Number(this.tokenService.getIdUser());
     //horaFin de momento es 0 cuando selecciono "detener" edita la horaFin
-   this.estacionamiento = new EstacionamientoData(this.timeInicio,0,patente.id,userId);
+   this.estacionamiento = new EstacionamientoData(true,today.getHours(),patente.patente,userId);
   
     this.estacionamientoService.create(this.estacionamiento)
     .subscribe({
       next:(data)=>{
         //guardo bien los datos
-        this.estacionamiento=data;
-        this.estacionamientoId=this.estacionamiento.id;
+        console.log('data del create',data);
+        if(data==null){
+          this.toastr.error('La patente '+patente.patente+' ya fue iniciada por otro usuario', 'Error', {
+            timeOut: 3000,  positionClass: 'toast-top-center',
+          });
+        }
+        else{
+
+       
+        let getHora=this.ciudad.horarioInicio.split(':')[0];
+        let getHoraFin=this.ciudad.horarioFin.split(':')[0];
         
-        console.log('datos del estacionamiento guardado:',this.estacionamiento);
+        if((data.horarioInicio>=+getHora)&&(data.horarioInicio<+getHoraFin)){
+           
+          this.estacionamiento=data;
+          this.estacionamientoId=this.estacionamiento.id;
+          this.inicioEstacionamiento= true;
+  
+        
+        }
+        else{
+          this.toastr.error('No puede estacionar fuera del horario '+this.ciudad.horarioInicio+'hs a '
+          +this.ciudad.horarioFin+'hs', 'Error', {
+            timeOut: 3000,  positionClass: 'toast-top-center',
+          });
+        }
+      
       }
+        
+      },
+      error:(err)=>{ 
+      this.toastr.error(err.error.mensaje, 'Error', {
+        timeOut: 3000,  positionClass: 'toast-top-center',
+      });
+      console.log(err.error);
+     }
     });
 };
 
  
 
   
-  detener(patente:Patente):void{
-    //console log de this.estacionamiento devuelve undefined;
-    this.findByPatenteIniciada(patente.patente);
+  detener():void{
+   this.finalizarEstacionamiento();
    
   }
-    findByPatenteIniciada(patente:String){
-    this.estacionamientoService.findByPatenteIniciada(patente)
-    .subscribe({
-      next:(data)=>{
-        this.estacionamiento=data;
-        this.estacionamientoId=data.id;
-       //llamo al actualizar acá para que se ejecute en orden
-        this.updateEstacionamiendoData();//seteo el valor del horarioFin
-        console.log('this.estacionamiento del metodo findByPatente',this.estacionamiento);
-      }
-     })
+  finalizarEstacionamiento(){
+    //inicioEstacionamiento ahora es falso,y actualizo el saldo
+    const userId=Number(this.tokenService.getIdUser());
+    this.estacionamientoService.finalizarEstacionamiento(userId)
+    .subscribe();
+    this.actualizarSaldo();//hacerlo en el backend
+    this.inicioEstacionamiento= false;
+    window.location.reload();
    }
 
    
-
-   updateEstacionamiendoData():void{
-    this.timeFin=this.today.getHours();
-    this.estacionamiento.horarioFin=this.timeFin;
-    this.estacionamiento.importe=this.estacionamiento.horarioFin-this.estacionamiento.horarioInicio;
-    this.estacionamiento.inicioEstacionamiento=false;
-
-    if(this.estacionamiento.importe==0){ //es decir,si estuve menos de 1 hs se le cobra la hora completa
-      this.estacionamiento.importe=this.valorPorHs;
-   }
-   else{
-     this.estacionamiento.importe=this.estacionamiento.importe*this.valorPorHs;    
-   }
-    this.estacionamientoService.update(this.estacionamientoId,this.estacionamiento)
-    .subscribe(
-      data=>{
-      this.actualizarSaldo()
-      setInterval(()=> window.location.reload(),2000)
-      
-      console.log('updateEstacionamiento',this.estacionamiento);
-    
-    }
-    );
- 
-  }
 
 
   mostrarSaldo():void{
@@ -163,6 +166,7 @@ export class EstacionamientoComponent implements OnInit {
  
   actualizarSaldo(){;
     this.usuario.cuentaCorriente.saldo=this.usuario.cuentaCorriente.saldo-this.estacionamiento.importe;
+   
     this.usuarioService.update(this.tokenService.getIdUser(), this.usuario)
     .subscribe({
       next:() => {
@@ -171,6 +175,7 @@ export class EstacionamientoComponent implements OnInit {
         });
         console.log('saldo actualizado',this.usuario.cuentaCorriente.saldo);
         this.estacionamiento.importe=0;
+        console.log('cuenta corriente actualizada',this.usuario.cuentaCorriente.saldo);
         this.router.navigate(['/estacionamiento']);
       }, 
     });

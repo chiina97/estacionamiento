@@ -1,22 +1,19 @@
 export class EstacionamientoData {
     id!:number;
     horarioInicio!:number;
-    horarioFin!:number;
     usuario!:{ 
         id:number;
     }
-    patente!:{
-        id:number;
-    }
+    patente: String;
     importe!:number;
     inicioEstacionamiento!:boolean;
-    constructor(horaInicio:number,horaFin:number,idPatente:number, idUser: number) {
+
+    constructor(inicio:boolean ,horaInicio:number,patente:String, idUser: number) {
         this.horarioInicio=horaInicio;
-        this.horarioFin=horaFin;
-        this.patente ={id:idPatente}
+        this.patente =patente;
         this.usuario = {id:idUser};
         this.importe=0;
-        this.inicioEstacionamiento=true;
+        this.inicioEstacionamiento=inicio;
     }
    
 }

@@ -24,4 +24,13 @@ export class EstacionamientoDataService {
    update(id: number, estacionamiento: EstacionamientoData):Observable<any>{
     return this.http.put<any>(this.estacionamientoURL+'/'+id,estacionamiento);
   }
+
+  public finalizarEstacionamiento(id:number): Observable<any>{
+    return this.http.get<any>(this.estacionamientoURL + '/finalizarEstacionamiento/'+id);
+  }
+
+
+  public getEstado(id:number):Observable<any>{
+    return this.http.get<any>(this.estacionamientoURL + '/getEstado/'+id);
+  }
 }
