@@ -26,6 +26,7 @@ export class EstacionamientoComponent implements OnInit {
   usuario!:Usuario;
 
   saldo!:number;
+  userId!:number;
   inicioEstacionamiento!:boolean;
  
   
@@ -38,6 +39,8 @@ export class EstacionamientoComponent implements OnInit {
   today = new Date();
   
   
+  
+  
   constructor(
     private patenteService:PatenteService,
     private ciudadService:CiudadService,
@@ -47,7 +50,7 @@ export class EstacionamientoComponent implements OnInit {
     private tokenService:TokenService,
     private router: Router,
     ) {
-     
+      this.userId=Number(this.tokenService.getIdUser());
      }
  
   
@@ -55,15 +58,15 @@ export class EstacionamientoComponent implements OnInit {
     this.obtenerInfoUsuario();
     this.obtenerInfoCiudad();
     this.listarPatentes();
-    this.mostrarSaldo(); 
     this.verificarInicioEstacionamiento();
+  
+ 
   }
 
   verificarInicioEstacionamiento(){
-    const userId=Number(this.tokenService.getIdUser());
-    this.estacionamientoService.getEstado(userId)
+    this.estacionamientoService.getEstado(this.userId)
     .subscribe(data=>{
-      this.inicioEstacionamiento=data;
+      this.inicioEstacionamiento=data; //devuelve true o false
     });
   }
   
@@ -86,15 +89,13 @@ export class EstacionamientoComponent implements OnInit {
 
   saveEstacionamientoData(patente:Patente):void{
     let today = new Date();
-    const userId=Number(this.tokenService.getIdUser());
     //horaFin de momento es 0 cuando selecciono "detener" edita la horaFin
-   this.estacionamiento = new EstacionamientoData(true,today.getHours(),patente.patente,userId);
-  
+   this.estacionamiento = new EstacionamientoData(true,today.getHours(),patente.patente,this.userId);
     this.estacionamientoService.create(this.estacionamiento)
     .subscribe({
       next:(data)=>{
         //guardo bien los datos
-        console.log('data del create',data);
+       
         if(data==null){
           this.toastr.error('La patente '+patente.patente+' ya fue iniciada por otro usuario', 'Error', {
             timeOut: 3000,  positionClass: 'toast-top-center',
@@ -109,9 +110,11 @@ export class EstacionamientoComponent implements OnInit {
         if((data.horarioInicio>=+getHora)&&(data.horarioInicio<+getHoraFin)){
            
           this.estacionamiento=data;
+          
           this.estacionamientoId=this.estacionamiento.id;
           this.inicioEstacionamiento= true;
-  
+         
+          
         
         }
         else{
@@ -137,55 +140,30 @@ export class EstacionamientoComponent implements OnInit {
 
   
   detener():void{
-   this.finalizarEstacionamiento();
-   
-  }
-  finalizarEstacionamiento(){
-    //inicioEstacionamiento ahora es falso,y actualizo el saldo
-    const userId=Number(this.tokenService.getIdUser());
-    this.estacionamientoService.finalizarEstacionamiento(userId)
-    .subscribe();
-    this.actualizarSaldo();//hacerlo en el backend
-    this.inicioEstacionamiento= false;
-    window.location.reload();
+   this.estacionamientoService.finalizarEstacionamiento(this.userId)
+   .subscribe({
+     next:(data)=>{
+       this.estacionamiento=data;
+       this.toastr.success('Se acredito el pago de '+this.estacionamiento.importe+'$', 'Pago acreditado!', {
+         timeOut: 3000, positionClass: 'toast-top-center'
+       });
+       setInterval(()=> window.location.reload(),2000)
    }
+ });
+  
+   this.inicioEstacionamiento= false;
+   
+  }
+  
 
    
-
-
-  mostrarSaldo():void{
-    this.usuarioService.get(this.tokenService.getIdUser())
-    .subscribe(
-      data=>{    
-        this.saldo=data.cuentaCorriente.saldo;
-       
-      }
-    )
-  }
-
- 
-  actualizarSaldo(){;
-    this.usuario.cuentaCorriente.saldo=this.usuario.cuentaCorriente.saldo-this.estacionamiento.importe;
-   
-    this.usuarioService.update(this.tokenService.getIdUser(), this.usuario)
-    .subscribe({
-      next:() => {
-        this.toastr.success('', 'Pago acreditado!', {
-          timeOut: 3000, positionClass: 'toast-top-center'
-        });
-        console.log('saldo actualizado',this.usuario.cuentaCorriente.saldo);
-        this.estacionamiento.importe=0;
-        console.log('cuenta corriente actualizada',this.usuario.cuentaCorriente.saldo);
-        this.router.navigate(['/estacionamiento']);
-      }, 
-    });
-  }
 
   obtenerInfoUsuario(){
     this.usuarioService.get(this.tokenService.getIdUser())
     .subscribe(
       data =>{
         this.usuario=data;
+        this.saldo=data.cuentaCorriente.saldo;
       }
     );
   }

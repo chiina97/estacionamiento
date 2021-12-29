@@ -12,7 +12,6 @@ export class EstacionamientoData {
         this.horarioInicio=horaInicio;
         this.patente =patente;
         this.usuario = {id:idUser};
-        this.importe=0;
         this.inicioEstacionamiento=inicio;
     }
    

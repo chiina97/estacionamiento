@@ -1,9 +1,13 @@
 <h3>Lista de patentes asociadas:</h3>
 <!--faltan todas las rutas del crud de patente por eso te redige al login-->
 <div class="form-group">
-  <a class="btn btn-primary "  routerLink="/agregarPatente">Agregar Patente</a>
+  <a class="btn btn-primary "  routerLink="/agregarPatente">Agregar Patente</a> 
+
   <button class="btn btn-dark ml-2" (click)="detener()" 
-            [disabled]="!inicioEstacionamiento ">Detener</button>
+    [disabled]="!inicioEstacionamiento ">Detener
+  </button>
+  
+   
 </div>
 
 <table class="table">
@@ -11,7 +15,6 @@
       <tr>
         <th scope="col">Patente</th>
         <th scope="col">Acciones</th>
-        <th scope="col">Importe</th>
         <th scope="col">Saldo disponible</th>
       </tr>
     </thead>
@@ -33,14 +36,6 @@
           <a class="btn btn-warning ml-2" [routerLink]="['/editar', patente.id ]">Editar</a>
           <a class="btn btn-danger ml-2"  (click)="eliminar(patente.id)">Eliminar</a>
         </td>
-        <td>
-          <div *ngIf="!inicioEstacionamiento" >
-              -
-         </div>
-         <div *ngIf="inicioEstacionamiento">
-          {{estacionamiento?.importe}}
-         </div>
-         </td>
          <td>
            {{saldo}}
       

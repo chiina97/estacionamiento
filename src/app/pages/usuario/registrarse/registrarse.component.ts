@@ -43,7 +43,8 @@ export class RegistrarseComponent implements OnInit {
    },
    error: (err) => {
     this.errMsj = err.error.mensaje;
-    this.toastr.error(this.errMsj, 'Error', {
+    console.log("error:",err.error);
+    this.toastr.error(err.error.mensaje, 'Error', {
       timeOut: 3000,  positionClass: 'toast-top-center',
     });
   }

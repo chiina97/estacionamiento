@@ -30,6 +30,7 @@ export class EstacionamientoDataService {
   }
 
 
+
   public getEstado(id:number):Observable<any>{
     return this.http.get<any>(this.estacionamientoURL + '/getEstado/'+id);
   }
