@@ -38,11 +38,11 @@ export class UserInterceptorService implements HttpInterceptor {
           }));
         } else {
           //this.tokenService.logOut();
+          console.log('entro al else');
           return throwError(err);
         }
       }));
     }
-  
     private addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
       return req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
     }
