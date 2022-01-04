@@ -38,7 +38,6 @@ export class UserInterceptorService implements HttpInterceptor {
           }));
         } else {
           //this.tokenService.logOut();
-          console.log('entro al else');
           return throwError(err);
         }
       }));
