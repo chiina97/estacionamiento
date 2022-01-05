@@ -8,8 +8,7 @@ import { PatenteService } from 'src/app/service/patente.service';
 
 @Component({
   selector: 'app-editar-patente',
-  templateUrl: './editar-patente.component.html',
-  styleUrls: ['./editar-patente.component.scss']
+  templateUrl: './editar-patente.component.html'
 })
 export class EditarPatenteComponent implements OnInit {
 

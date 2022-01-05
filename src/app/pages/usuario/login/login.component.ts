@@ -38,11 +38,11 @@ export class LoginComponent implements OnInit {
     
      },
      error: (err) => {
-      this.errMsj = err.error.mensaje;
-      this.toastr.error(this.errMsj, 'Error', {
+
+      this.toastr.error('El telefono/contraseña es incorrecta', 'Error', {
         timeOut: 3000,  positionClass: 'toast-top-center',
       });
-      console.log(err.error);
+      
      }
     }
 );

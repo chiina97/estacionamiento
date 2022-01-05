@@ -1,0 +1,27 @@
+<!--Si el saldo es 0 entonces muestra el form de cargarSaldo
+sino muestra una tabla con el saldo disponible y la opcion editar-->
+<h4> Datos:</h4>
+
+<table class="table ">
+    <thead class="thead-light " >
+      <tr>
+        <th scope="col">Usuario</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Saldo Disponible</th>
+        <th scope="col">Cargar Saldo</th>
+      </tr>
+    </thead>
+    <tbody >
+        <tr>
+      <td>{{usuario?.telefono}}</td>
+      <td>{{usuario?.mail}}</td>
+      <td>
+        {{usuario?.cuentaCorriente?.saldo}}
+      </td>
+        <td>
+          <a class="btn btn-success ml-2" [routerLink]="['/editarCuenta', usuario?.id ]" >Cargar </a>
+        </td>
+         
+      </tr>
+    </tbody>
+  </table>

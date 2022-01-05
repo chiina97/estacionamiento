@@ -9,8 +9,10 @@
         <!-- Each link has the routerLink property set to a different route -->
         <a class="nav-item nav-link"  routerLinkActive="active" routerLink="/home">Home</a>
         <a class="nav-item nav-link" *ngIf="!isLogged" routerLinkActive="active" routerLink="/registrarse">Registrarse</a>
-        <a class="nav-item nav-link" *ngIf="isLogged" routerLinkActive="active" routerLink="/estacionamiento">Iniciar Estacionamiento</a>
         <a class="nav-item nav-link" *ngIf="!isLogged" routerLinkActive="active" routerLink="/login">Iniciar Sesion</a>
+
+        <a class="nav-item nav-link" *ngIf="isLogged" routerLinkActive="active" routerLink="/estacionamiento">Iniciar Estacionamiento</a>
+        <a class="nav-item nav-link" *ngIf="isLogged" routerLinkActive="active" routerLink="/cuentaCorriente">Cuenta</a>
         <a class="nav-item nav-link" *ngIf="isLogged" routerLinkActive="active"
         (click)="onLogOut()" type="reset">Cerrar Sesion</a>
       </div>
