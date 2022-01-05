@@ -90,7 +90,7 @@ export class EstacionamientoComponent implements OnInit {
   saveEstacionamientoData(patente:Patente):void{
     let today = new Date();
     //horaFin de momento es 0 cuando selecciono "detener" edita la horaFin
-   this.estacionamiento = new EstacionamientoData(true,today.getHours(),patente.patente,this.userId);
+   this.estacionamiento = new EstacionamientoData(true,today.toString(),patente.patente,this.userId);
     this.estacionamientoService.create(this.estacionamiento)
     .subscribe({
       next:(data)=>{
@@ -106,9 +106,13 @@ export class EstacionamientoComponent implements OnInit {
        
         let getHora=this.ciudad.horarioInicio.split(':')[0];
         let getHoraFin=this.ciudad.horarioFin.split(':')[0];
+
+        let horaInicio=data.horarioInicio.split(' ')[4].split(':')[0];
+      
+      
         
-        if((data.horarioInicio>=+getHora)&&(data.horarioInicio<+getHoraFin)){
-           
+        if((+horaInicio>=+getHora)&&(+horaInicio<+getHoraFin)){
+          
           this.estacionamiento=data;
           
           this.estacionamientoId=this.estacionamiento.id;
@@ -118,6 +122,7 @@ export class EstacionamientoComponent implements OnInit {
         
         }
         else{
+       
           this.toastr.error('No puede estacionar fuera del horario '+this.ciudad.horarioInicio+'hs a '
           +this.ciudad.horarioFin+'hs', 'Error', {
             timeOut: 3000,  positionClass: 'toast-top-center',
@@ -133,6 +138,7 @@ export class EstacionamientoComponent implements OnInit {
       });
       console.log(err.error);
      }
+     
     });
 };
 
@@ -147,7 +153,7 @@ export class EstacionamientoComponent implements OnInit {
        this.toastr.success('Se acredito el pago de '+this.estacionamiento.importe+'$', 'Pago acreditado!', {
          timeOut: 3000, positionClass: 'toast-top-center'
        });
-       setInterval(()=> window.location.reload(),2000)
+       setInterval(()=> window.location.reload(),1000)
    }
  });
   

@@ -1,6 +1,6 @@
 export class EstacionamientoData {
     id!:number;
-    horarioInicio!:number;
+    horarioInicio!:String;
     usuario!:{ 
         id:number;
     }
@@ -8,7 +8,7 @@ export class EstacionamientoData {
     importe!:number;
     inicioEstacionamiento!:boolean;
 
-    constructor(inicio:boolean ,horaInicio:number,patente:String, idUser: number) {
+    constructor(inicio:boolean ,horaInicio:String,patente:String, idUser: number) {
         this.horarioInicio=horaInicio;
         this.patente =patente;
         this.usuario = {id:idUser};

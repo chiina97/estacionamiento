@@ -1,21 +1,25 @@
 <h3>Lista de patentes asociadas:</h3>
 <!--faltan todas las rutas del crud de patente por eso te redige al login-->
 <div class="form-group">
+
   <a class="btn btn-primary "  routerLink="/agregarPatente">Agregar Patente</a> 
 
   <button class="btn btn-dark ml-2" (click)="detener()" 
     [disabled]="!inicioEstacionamiento ">Detener
   </button>
-  
+  <div style="float:right"> 
+    <h6>Saldo Disponible: {{saldo}}</h6> 
    
+  </div>
+  
 </div>
 
-<table class="table">
-    <thead class="thead-light">
+<table class="table ">
+    <thead class="thead-light " >
       <tr>
         <th scope="col">Patente</th>
+        <th scope="col">Iniciar Estacionamiento</th>
         <th scope="col">Acciones</th>
-        <th scope="col">Saldo disponible</th>
       </tr>
     </thead>
     <tbody >
@@ -26,20 +30,16 @@
       >
         
       <td>{{patente.patente}}</td>
+      <td>
+        <button [disabled]="this.inicioEstacionamiento" class="btn btn-success ml-2" (click)="iniciar(patente)">
+          Iniciar
+        </button>
+      </td>
         <td>
-          <!--si selecciono iniciar cambia el boton de iniciar por detener-->
-            <button [disabled]="this.inicioEstacionamiento" class="btn btn-success ml-2" (click)="iniciar(patente)">
-              Iniciar
-            </button>
-            
-        
           <a class="btn btn-warning ml-2" [routerLink]="['/editar', patente.id ]">Editar</a>
           <a class="btn btn-danger ml-2"  (click)="eliminar(patente.id)">Eliminar</a>
         </td>
-         <td>
-           {{saldo}}
-      
-         </td>
+         
       </tr>
     </tbody>
   </table>
