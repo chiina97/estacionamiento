@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CuentaCorrienteRoutingModule } from './cuenta-corriente-routing.module';
 import { CuentaCorrienteComponent } from './cuenta-corriente.component';
 import { FormsModule } from '@angular/forms';
-import { EditarCuentaComponent } from './editar-cuenta/editar-cuenta.component'; //para usar ngModel
+import { EditarCuentaComponent } from '../editar-cuenta/editar-cuenta.component'; //para usar ngModel
 
 
 @NgModule({

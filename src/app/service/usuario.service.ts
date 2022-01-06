@@ -30,10 +30,11 @@ export class UsuarioService {
     return this.http.get<Usuario>(this.authURL+'/'+id);
   }
 
-   //update crea un usuario
-  public update(id: number,usuario:Usuario):Observable<any>{
-    return this.http.put<any>(this.authURL+"/"+id,usuario);
+   //update importe usuario
+  public updateImporte(id: number,usuario:Usuario):Observable<any>{
+    return this.http.put<any>(this.authURL+"/cuenta/"+id,usuario);
   }
+ 
   public debitar(id:number):Observable<any>{
     console.log("ejecutando debito");
     return this.http.post<any>(this.authURL+'/debitar',id);

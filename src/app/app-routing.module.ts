@@ -30,7 +30,7 @@ const routes: Routes = [
     { path: 'login', loadChildren: () => import('./pages/usuario/login/login.module').then(m => m.LoginModule) },
     { path: 'agregarPatente', loadChildren: () => import('./pages/patente/agregar-patente/agregar-patente.module').then(m => m.AgregarPatenteModule) }, 
     { path: 'editar/:id', loadChildren: () => import('./pages/patente/editar-patente/editar-patente.module').then(m => m.EditarPatenteModule) },
-  { path: 'cuentaCorriente', loadChildren: () => import('./pages/cuenta-corriente/cuenta-corriente.module').then(m => m.CuentaCorrienteModule) },
+  { path: 'cuentaCorriente', loadChildren: () => import('./pages/cuenta-corriente/listar-cuenta/cuenta-corriente.module').then(m => m.CuentaCorrienteModule) },
   { path: 'editarCuenta/:id', loadChildren: () => import('./pages/cuenta-corriente/editar-cuenta/editar-cuenta.module').then(m => m.EditarCuentaModule) }, 
 ],
   

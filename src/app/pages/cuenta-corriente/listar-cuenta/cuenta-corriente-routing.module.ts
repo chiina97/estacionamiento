@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserGuard } from 'src/app/guards/user.guard';
 import { CuentaCorrienteComponent } from './cuenta-corriente.component';
-import { EditarCuentaComponent } from './editar-cuenta/editar-cuenta.component';
 
 const routes: Routes = [
   { path: '', component: CuentaCorrienteComponent , 

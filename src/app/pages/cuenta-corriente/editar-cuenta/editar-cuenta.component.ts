@@ -36,13 +36,13 @@ export class EditarCuentaComponent implements OnInit {
     const id = this.activatedRoute.snapshot.params['id'];
     if(this.saldo>=100){
       this.usuario.cuentaCorriente.saldo=Number(this.usuario.cuentaCorriente.saldo)+Number(this.saldo);
-      this.usuarioService.update(id, this.usuario)
+      this.usuarioService.updateImporte(id, this.usuario)
       .subscribe({
         next:() => {
           this.toastr.success('', 'Saldo Acreditado!', {
             timeOut: 3000, positionClass: 'toast-top-center'
           });
-          this.router.navigate(['/cuentaCorriente']);
+          window.history.back();
      
         },
         error:(err) => {
