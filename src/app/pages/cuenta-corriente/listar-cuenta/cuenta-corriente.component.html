@@ -2,28 +2,22 @@
 sino muestra una tabla con el saldo disponible y la opcion editar-->
 
 
-<div class="col-md-8  offset-md-2">
-  <h4> Mis Datos:</h4>
+<div class="col-md-7  offset-md-2" style="padding-top:2em;">
+  
   <div class="card mb-3 ">
-    
-<table class="table ">
-    <thead class="thead-light " >
-      <tr>
-        <th scope="col">Usuario</th>
-        <th scope="col">Correo</th>
-        <th scope="col">Saldo Disponible</th>
-      </tr>
-    </thead>
-    <tbody >
-        <tr>
-      <td>{{usuario?.telefono}}</td>
-      <td>{{usuario?.mail}}</td>
-      <td>
-        {{usuario?.cuentaCorriente?.saldo}} <a class="btn btn-success ml-2" [routerLink]="['/editarCuenta', usuario?.id ]" >Cargar </a>
-      </td>
-         
-      </tr>
-    </tbody>
-  </table>
+    <div class="card-header">
+      Mis Datos
+      <div style="float:right">
+       <strong>Saldo: {{usuario?.cuentaCorriente?.saldo}}</strong> 
+       <a class="btn btn-success ml-2" [routerLink]="['/editarCuenta', usuario?.id ]" >Cargar </a>
+      </div>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Usuario</h5>
+      <p class="card-text">{{usuario?.telefono}}</p>
+      <h5 class="card-title">Correo</h5>
+      <p class="card-text">{{usuario?.mail}}</p>
+    </div>
+     
   </div>
 </div>

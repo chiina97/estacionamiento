@@ -39,7 +39,7 @@ export class EditarCuentaComponent implements OnInit {
       this.usuarioService.updateImporte(id, this.usuario)
       .subscribe({
         next:() => {
-          this.toastr.success('', 'Saldo Acreditado!', {
+          this.toastr.success('Se acreditaron $'+this.saldo, 'Saldo Acreditado!', {
             timeOut: 3000, positionClass: 'toast-top-center'
           });
           window.history.back();
