@@ -1,0 +1,20 @@
+<h3>Historial:</h3>
+<div *ngFor="let h of historial | paginate: {
+    itemsPerPage: 3,
+    currentPage: page,
+    totalItems: totalLength }">
+
+
+<div  style="padding-top:2em; padding-left: 2em;">
+    <div style="float:right; color: gray;">
+        fecha:{{h.fecha}} 
+     </div>
+    <div>
+    <h5>Tipo de operación: {{h.tipoOperacion}}</h5>
+    <p>Saldo: {{h.saldoAnterior}} </p>
+  </div>
+  </div>
+  <hr>
+</div>
+  <pagination-controls  previousLabel="Anterior"
+  nextLabel="Siguiente" (pageChange)="page = $event"></pagination-controls>

@@ -1,14 +1,11 @@
-<!--Si el saldo es 0 entonces muestra el form de cargarSaldo
-sino muestra una tabla con el saldo disponible y la opcion editar-->
-
-
 <div class="col-md-7  offset-md-2" style="padding-top:2em;">
   
   <div class="card mb-3 ">
     <div class="card-header">
       Mis Datos
+      <a class="btn btn-primary ml-2" routerLink="/historial" >Ver Historial </a>
       <div style="float:right">
-       <strong>Saldo: {{usuario?.cuentaCorriente?.saldo}}</strong> 
+       <strong>Saldo: ${{usuario?.cuentaCorriente?.saldo}}</strong> 
        <a class="btn btn-success ml-2" [routerLink]="['/editarCuenta', usuario?.id ]" >Cargar </a>
       </div>
     </div>

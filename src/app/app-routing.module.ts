@@ -33,9 +33,12 @@ const routes: Routes = [
     { path: 'editar/:id', loadChildren: () => import('./pages/patente/editar-patente/editar-patente.module').then(m => m.EditarPatenteModule) },
   { path: 'cuentaCorriente', loadChildren: () => import('./pages/cuenta-corriente/listar-cuenta/cuenta-corriente.module').then(m => m.CuentaCorrienteModule) },
   { path: 'editarCuenta/:id', loadChildren: () => import('./pages/cuenta-corriente/editar-cuenta/editar-cuenta.module').then(m => m.EditarCuentaModule) }, 
+
+  { path: 'historial', loadChildren: () => import('./pages/historial/historial.module').then(m => m.HistorialModule) },
 ],
   
 },
+  
  
  
 
