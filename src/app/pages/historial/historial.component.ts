@@ -34,13 +34,10 @@ export class HistorialComponent implements OnInit {
     .subscribe(
       data=>{
         this.idCuenta=data.cuentaCorriente.id;
-        console.log("data del user",data);
-        console.log("que tiene cuenta",this.idCuenta)
     this.historialService.findAllById(this.idCuenta)
     .subscribe(
       data=>{
         this.historial=data;
-        console.log("historial por id",data);
     });
       }
     );

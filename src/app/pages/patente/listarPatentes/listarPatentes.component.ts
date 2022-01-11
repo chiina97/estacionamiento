@@ -11,6 +11,8 @@ import { Usuario } from 'src/app/models/usuario';
 import { EstacionamientoData } from 'src/app/models/estacionamiento-data';
 import { EstacionamientoDataService } from 'src/app/service/estacionamiento-data.service';
 import { AnimationDriver } from '@angular/animations/browser';
+import { HistorialService } from 'src/app/service/historial.service';
+import { Historial } from 'src/app/models/historial';
 
 
 
@@ -24,6 +26,7 @@ export class EstacionamientoComponent implements OnInit {
   ciudad!:Ciudad;
   estacionamiento!:EstacionamientoData;
   usuario!:Usuario;
+
 
   saldo!:number;
   userId!:number;
@@ -49,6 +52,7 @@ export class EstacionamientoComponent implements OnInit {
     private toastr: ToastrService,
     private tokenService:TokenService,
     private router: Router,
+    private historialService:HistorialService,
     ) {
       this.userId=Number(this.tokenService.getIdUser());
      }
@@ -136,7 +140,7 @@ export class EstacionamientoComponent implements OnInit {
       this.toastr.error(err.error.mensaje, 'Error', {
         timeOut: 3000,  positionClass: 'toast-top-center',
       });
-      console.log(err.error);
+      
      }
      
     });
@@ -150,6 +154,7 @@ export class EstacionamientoComponent implements OnInit {
    .subscribe({
      next:(data)=>{
        this.estacionamiento=data;
+       this.crearHistorial();
        this.toastr.success('Se acredito el pago de '+this.estacionamiento.importe+'$', 'Pago acreditado!', {
          timeOut: 3000, positionClass: 'toast-top-center'
        });
@@ -161,6 +166,15 @@ export class EstacionamientoComponent implements OnInit {
    
   }
   
+  crearHistorial():void{
+    let today = new Date();
+    let fechaFormateada=today.toLocaleDateString()
+    let fechaYhora=fechaFormateada +" " +today.toLocaleTimeString();
+    const historial=new Historial("Consumo",fechaYhora,this.estacionamiento.importe,this.usuario.cuentaCorriente.saldo,this.usuario.cuentaCorriente.id);
+    this.historialService.create(historial)
+    .subscribe({
+      next:()=>{}});
+  }
 
    
 

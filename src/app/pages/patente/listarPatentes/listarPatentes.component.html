@@ -15,6 +15,7 @@
 </h3>
 <h6 >Saldo Disponible: {{saldo}} <a class="btn btn-info ml-2" [routerLink]="['/editarCuenta', usuario?.id ]" >Cargar </a></h6> 
   
+<div *ngIf="patentes.length > 0">
 
 <table class="table ">
   
@@ -49,3 +50,14 @@
   
   <pagination-controls  previousLabel="Anterior"
   nextLabel="Siguiente" (pageChange)="page = $event"></pagination-controls>
+</div>
+<div *ngIf="patentes.length == 0">
+ <div class="card mb-3 ">
+  <div class="card-body">
+    <h5 class="card-title">No se encuentran patentes registradas</h5>
+    <p class="card-text">Por favor, registre una patente para administrar su estacionamiento.</p>
+    
+  </div>
+   
+</div>
+</div>
