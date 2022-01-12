@@ -13,6 +13,7 @@ import { EstacionamientoDataService } from 'src/app/service/estacionamiento-data
 import { AnimationDriver } from '@angular/animations/browser';
 import { HistorialService } from 'src/app/service/historial.service';
 import { Historial } from 'src/app/models/historial';
+import { FeriadoService } from 'src/app/service/feriado.service';
 
 
 
@@ -51,8 +52,8 @@ export class EstacionamientoComponent implements OnInit {
     private estacionamientoService:EstacionamientoDataService,
     private toastr: ToastrService,
     private tokenService:TokenService,
-    private router: Router,
     private historialService:HistorialService,
+    private feriadoService:FeriadoService,
     ) {
       this.userId=Number(this.tokenService.getIdUser());
      }
@@ -74,34 +75,55 @@ export class EstacionamientoComponent implements OnInit {
     });
   }
   
-  iniciar(patente:Patente):void{
-    if(this.saldo>this.ciudad.valorPorHs){
-     
-        this.saveEstacionamientoData(patente);//guardo datos del estacionamiento en el backend
-  
-     
-    }
-    else{
-      this.toastr.error('El saldo de su cuenta es insuficiente', 'Error', {
-        timeOut: 3000,  positionClass: 'toast-top-center',
-      });
-    }
-    
+  verificarEstacionamiento(patente:String):void{
+         this.verificarDiasHabiles(patente);
 
   }
 
+  verificarDiasHabiles(patente:String){
+ //el boton iniciar estacionamiento del html invoca a este metodo
+    //obtiene la fecha formateada igual que en la tabla feriado-> ej: "12/1".
+    //se reemplaza '/' con '-' porque sino genera problemas con la url y no lo toma como string.
+    //llama al metodo getByFecha que devuelve  si si el dia actual es un dia habil o no.
+    let today = new Date();
+    let fechaFormateada = today.toLocaleDateString().split('/')[0] +"-"+ today.toLocaleDateString().split ('/')[1];
+    console.log("resultado de fecha formateada: ", fechaFormateada);
+    this.feriadoService.getByFecha(fechaFormateada)
+    .subscribe((data:boolean)=>{
+      console.log("data",data);
+      if(data){
+        this.toastr.error('Solo puede iniciar/finalizar los dias habiles', 'Error', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
+      
+      }
+      else{
+        console.log("inicio estacionamiento es:",this.inicioEstacionamiento);
+        if(this.inicioEstacionamiento){
+          console.log("finalice estacionamiento")
+          this.detener();
+          
+        }
+        else{
+          this.saveEstacionamientoData(patente);
+        }
+      }
+    });
+  }
+  
 
-  saveEstacionamientoData(patente:Patente):void{
+  saveEstacionamientoData(nombre:String):void{
+    if(this.saldo>this.ciudad.valorPorHs){
     let today = new Date();
     //horaFin de momento es 0 cuando selecciono "detener" edita la horaFin
-   this.estacionamiento = new EstacionamientoData(true,today.toString(),patente.patente,this.userId);
+   this.estacionamiento = new EstacionamientoData(true,today.toString(),nombre,this.userId);
     this.estacionamientoService.create(this.estacionamiento)
     .subscribe({
       next:(data)=>{
         //guardo bien los datos
        
         if(data==null){
-          this.toastr.error('La patente '+patente.patente+' ya fue iniciada por otro usuario', 'Error', {
+          this.toastr.error('La patente '+nombre+' ya fue iniciada por otro usuario', 'Error', {
             timeOut: 3000,  positionClass: 'toast-top-center',
           });
         }
@@ -144,6 +166,11 @@ export class EstacionamientoComponent implements OnInit {
      }
      
     });
+  }else{
+    this.toastr.error('El saldo de su cuenta es insuficiente', 'Error', {
+      timeOut: 3000,  positionClass: 'toast-top-center',
+    });
+  }
 };
 
  
@@ -158,7 +185,7 @@ export class EstacionamientoComponent implements OnInit {
        this.toastr.success('Se acredito el pago de '+this.estacionamiento.importe+'$', 'Pago acreditado!', {
          timeOut: 3000, positionClass: 'toast-top-center'
        });
-       setInterval(()=> window.location.reload(),1000)
+       //setInterval(()=> window.location.reload(),1000)
    }
  });
   
