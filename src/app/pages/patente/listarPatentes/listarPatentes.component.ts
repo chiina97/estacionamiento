@@ -78,53 +78,21 @@ export class EstacionamientoComponent implements OnInit {
   //si es de lunes a viernes llama a verificar dias habiles que verifica si 
   //durante ese periodo de lunes a viernes es feriado
   verificarEstacionamiento(patente:String):void{
-    let fechaActual = new Date();
-    let dia = fechaActual.toString().split(' ')[0];
-    if((dia.match("Sun")) || (dia.match("Sat"))){
-      this.toastr.error('Solo puede iniciar/finalizar los dias habiles', 'Error', {
-        timeOut: 3000,  positionClass: 'toast-top-center',
-      });
-    }else{
-      this.verificarDiasHabiles(patente,fechaActual);
-    }     
-
-  }
-
-  verificarDiasHabiles(patente:String,fechaActual:Date){
- //el boton iniciar estacionamiento del html invoca a este metodo
-    //obtiene la fecha formateada igual que en la tabla feriado-> ej: "12/1".
-    //se reemplaza '/' con '-' porque sino genera problemas con la url y no lo toma como string.
-    //llama al metodo getByFecha que devuelve  si si el dia actual es un dia habil o no.
-    let fechaFormateada = fechaActual.toLocaleDateString().split('/')[0] +"-"+ fechaActual.toLocaleDateString().split ('/')[1];
-    console.log("resultado de fecha formateada: ", fechaFormateada);
-    this.feriadoService.getByFecha(fechaFormateada)
-    .subscribe((data:boolean)=>{
-      console.log("data",data);
-      if(data){
-        this.toastr.error('Solo puede iniciar/finalizar los dias habiles', 'Error', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-      
+ 
+      if(this.inicioEstacionamiento){
+        this.detener();
       }
       else{
-        if(this.inicioEstacionamiento){
-          this.detener();
-          
-        }
-        else{
-          this.saveEstacionamientoData(patente);
-        }
+        this.saveEstacionamientoData(patente);
       }
-    });
+        
+
   }
-  
+
 
   saveEstacionamientoData(nombre:String):void{
-    if(this.saldo>this.ciudad.valorPorHs){
-    let fechaActual = new Date();
-    if(this.verificarHorarioOperable(fechaActual.getHours())){
-    //horaFin de momento es 0 cuando selecciono "detener" edita la horaFin
-   this.estacionamiento = new EstacionamientoData(true,fechaActual.toString(),nombre,this.userId);
+    let hoy= new Date();
+   this.estacionamiento = new EstacionamientoData(true,hoy.toString(),nombre,this.userId);
     this.estacionamientoService.create(this.estacionamiento)
     .subscribe({
       next:(data)=>{
@@ -143,6 +111,7 @@ export class EstacionamientoComponent implements OnInit {
         
       },
       error:(err)=>{ 
+        console.log("error del create",err);
       this.toastr.error(err.error.mensaje, 'Error', {
         timeOut: 3000,  positionClass: 'toast-top-center',
       });
@@ -150,52 +119,31 @@ export class EstacionamientoComponent implements OnInit {
      }
      
     });
-  }else{
-    this.toastr.error('No puede estacionar fuera del horario operable de '+this.ciudad.horarioInicio+'hs a '
-    +this.ciudad.horarioFin+'hs', 'Error', {
-      timeOut: 3000,  positionClass: 'toast-top-center',
-    });
-  }
-}
-else{
- 
-
-  this.toastr.error('El saldo de su cuenta es insuficiente', 'Error', {
-    timeOut: 3000,  positionClass: 'toast-top-center',
-  });
-}
-};
-
- verificarHorarioOperable(horaInicio:number):boolean{
-    
-  let horaInicioCiudad=this.ciudad.horarioInicio.split(':')[0];
-  let horaFinCiudad=this.ciudad.horarioFin.split(':')[0];
-  
-  if((+horaInicio>=+horaInicioCiudad)&&(+horaInicio<+horaFinCiudad)){
-    return true;
  
   }
-  else{
-     return false;
 
-  }
- }
 
-  
+ 
   detener():void{
    this.estacionamientoService.finalizarEstacionamiento(this.userId)
    .subscribe({
      next:(data)=>{
        this.estacionamiento=data;
        this.crearHistorial();
+       this.inicioEstacionamiento= false;
        this.toastr.success('Se acredito el pago de '+this.estacionamiento.importe+'$', 'Pago acreditado!', {
          timeOut: 3000, positionClass: 'toast-top-center'
        });
        setInterval(()=> window.location.reload(),1000)
+   },
+   error:(err)=>{
+    this.toastr.error(err.error.mensaje, 'Error', {
+      timeOut: 3000,  positionClass: 'toast-top-center',
+    });
    }
  });
   
-   this.inicioEstacionamiento= false;
+  
    
   }
   
