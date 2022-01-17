@@ -10,10 +10,8 @@ import {  Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario';
 import { EstacionamientoData } from 'src/app/models/estacionamiento-data';
 import { EstacionamientoDataService } from 'src/app/service/estacionamiento-data.service';
-import { AnimationDriver } from '@angular/animations/browser';
 import { HistorialService } from 'src/app/service/historial.service';
 import { Historial } from 'src/app/models/historial';
-import { FeriadoService } from 'src/app/service/feriado.service';
 
 
 
@@ -47,13 +45,11 @@ export class EstacionamientoComponent implements OnInit {
   
   constructor(
     private patenteService:PatenteService,
-    private ciudadService:CiudadService,
     private usuarioService:UsuarioService,
     private estacionamientoService:EstacionamientoDataService,
     private toastr: ToastrService,
     private tokenService:TokenService,
-    private historialService:HistorialService,
-    private feriadoService:FeriadoService,
+    private historialService:HistorialService
     ) {
       this.userId=Number(this.tokenService.getIdUser());
      }
@@ -61,7 +57,6 @@ export class EstacionamientoComponent implements OnInit {
   
   ngOnInit(): void { 
     this.obtenerInfoUsuario();
-    this.obtenerInfoCiudad();
     this.listarPatentes();
     this.verificarInicioEstacionamiento();
   
@@ -97,17 +92,10 @@ export class EstacionamientoComponent implements OnInit {
     .subscribe({
       next:(data)=>{
         //guardo bien los datos
-       
-        if(data==null){
-          this.toastr.error('La patente '+nombre+' ya fue iniciada por otro usuario', 'Error', {
-            timeOut: 3000,  positionClass: 'toast-top-center',
-          });
-        }
-        else{
           this.estacionamiento=data;
          this.estacionamientoId=this.estacionamiento.id;
           this.inicioEstacionamiento= true;
-        }
+        
         
       },
       error:(err)=>{ 
@@ -168,15 +156,7 @@ export class EstacionamientoComponent implements OnInit {
       }
     );
   }
-  obtenerInfoCiudad(){
-    this.ciudadService.getDataCiudad()
-    .subscribe(
-      data=>{
-        this.ciudad=data[0];
-        this.valorPorHs=this.ciudad.valorPorHs;
-      }
-    );
-  }
+
   listarPatentes():void{
     this.patenteService.getAll(this.tokenService.getIdUser())
     .subscribe(
