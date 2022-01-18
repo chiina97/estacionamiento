@@ -29,19 +29,12 @@ export class HistorialComponent implements OnInit {
     this.getHistorial();
   }
   public getHistorial():void{
-    this.usuarioService.findById(this.userId)
-    .subscribe(
-      data=>{
-        this.idCuenta=data.cuentaCorriente.id;
-    this.historialService.findAllById(this.idCuenta)
+    this.historialService.findAllById(this.userId)
     .subscribe(
       data=>{
         this.historial=data;
     });
       }
-    );
-    
-
-  }
+  
 
 }
