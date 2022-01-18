@@ -28,7 +28,7 @@ export class CuentaCorrienteComponent implements OnInit {
   }
 
   mostrarInfoUsuario(id:number):void{
-   this.usuarioService.get(id)
+   this.usuarioService.findById(id)
    .subscribe(
      data=>{
       this.saldo=data.cuentaCorriente.saldo; 

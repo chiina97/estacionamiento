@@ -4,7 +4,6 @@ import { Usuario } from 'src/app/models/usuario';
 import { HistorialService } from 'src/app/service/historial.service';
 import { TokenService } from 'src/app/service/token.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
-import { CuentaCorrienteComponent } from '../cuenta-corriente/listar-cuenta/cuenta-corriente.component';
 
 @Component({
   selector: 'app-historial',
@@ -30,7 +29,7 @@ export class HistorialComponent implements OnInit {
     this.getHistorial();
   }
   public getHistorial():void{
-    this.usuarioService.get(this.userId)
+    this.usuarioService.findById(this.userId)
     .subscribe(
       data=>{
         this.idCuenta=data.cuentaCorriente.id;

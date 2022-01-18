@@ -21,7 +21,5 @@ export class HistorialService {
     return this.http.get<Historial[]>(this.historialURL+'/'+id);
   }
 
-  public getAll():Observable<Historial[]>{
-    return this.http.get<Historial[]>(this.historialURL);
-  }
+ 
 }

@@ -7,9 +7,8 @@ export class Historial {
     cuentaCorriente!:{
         id:number;
     }
-    constructor(tipoOperacion:String,fecha:String,monto:number,saldoAnterior:number,idCuenta:number){
+    constructor(tipoOperacion:String,monto:number,saldoAnterior:number,idCuenta:number){
         this.tipoOperacion=tipoOperacion;
-        this.fecha=fecha;
         this.monto=monto;
         this.saldoAnterior=saldoAnterior;
         this.cuentaCorriente={id:idCuenta};

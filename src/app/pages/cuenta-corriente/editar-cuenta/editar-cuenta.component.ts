@@ -29,7 +29,7 @@ export class EditarCuentaComponent implements OnInit {
     this.mostrarInfoUsuario(Number(this.tokenService.getIdUser()));
   }
   mostrarInfoUsuario(id:number):void{
-    this.usuarioService.get(id)
+    this.usuarioService.findById(id)
     .subscribe(
       data=>{this.usuario=data;
     });
@@ -66,10 +66,8 @@ export class EditarCuentaComponent implements OnInit {
      }
 
   crearHistorial():void{
-    let today = new Date();
-    let fechaFormateada=today.toLocaleDateString()
-    let fechaYhora=fechaFormateada +" " +today.toLocaleTimeString();
-    const historial=new Historial("Carga",fechaYhora,Number(this.saldo),this.usuario.cuentaCorriente.saldo,this.usuario.cuentaCorriente.id);
+    let idUser=this.usuario.cuentaCorriente.id;
+    const historial=new Historial("Carga",Number(this.saldo),this.usuario.cuentaCorriente.saldo,idUser);
     this.historialService.create(historial)
     .subscribe({
       next:()=>{}});

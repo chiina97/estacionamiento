@@ -15,10 +15,6 @@ export class UsuarioService {
 
   constructor(private http:HttpClient) { }
 
-  //obtener findAll usuarios
-  public getAll():Observable<Usuario[]>{
-    return this.http.get<Usuario[]>(this.authURL);
-  }
 
   //post crea un usuario MODIFICADO PARA EL TOKEN
   public create(usuario:Usuario):Observable<any>{
@@ -26,7 +22,7 @@ export class UsuarioService {
   }
 
   //obtener un usuarios
-  public get(id:number):Observable<Usuario>{
+  public findById(id:number):Observable<Usuario>{
     return this.http.get<Usuario>(this.authURL+'/'+id);
   }
 

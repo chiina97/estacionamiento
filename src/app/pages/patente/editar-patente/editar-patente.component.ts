@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Patente } from 'src/app/models/patente';
-import { Usuario } from 'src/app/models/usuario';
 import { PatenteService } from 'src/app/service/patente.service';
 
 
@@ -14,32 +13,41 @@ export class EditarPatenteComponent implements OnInit {
 
   nombreDePatente:String="";
   patente!:Patente;
+
+  idPatente!:number;
+
   constructor(
     private router: Router,
     private patenteService:PatenteService,
     private toastr: ToastrService,
-    private activatedRoute: ActivatedRoute,) { }
+    private activatedRoute: ActivatedRoute,) 
+    {
+      this.idPatente = this.activatedRoute.snapshot.params['id'];
+     }
 
   ngOnInit() {
-    const id = this.activatedRoute.snapshot.params['id'];
-    this.patenteService.findById(id)
+    this.findById();
+  }
+
+  findById(){
+    this.patenteService.findById(this.idPatente)
     .subscribe({
       next:(data) => {
         this.nombreDePatente = data.patente;
         this.patente=data;
       },
       error:(err) => {
-        console.log('onInt',err);
+      
         this.toastr.error(err.error.mensaje, 'Error', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
         this.router.navigate(['/estacionamiento']);
-      }});}
+      }})
+  }
 
   update(): void {
-    const id = this.activatedRoute.snapshot.params['id'];
     this.patente.patente=this.nombreDePatente;
-    this.patenteService.update(id, this.patente)
+    this.patenteService.update(this.idPatente, this.patente)
     .subscribe({
       next:() => {
         this.toastr.success('', 'Patente Actualizada', {
@@ -53,7 +61,7 @@ export class EditarPatenteComponent implements OnInit {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
       }
-      //window.location.reload(); 
+     
       }
     });
   }

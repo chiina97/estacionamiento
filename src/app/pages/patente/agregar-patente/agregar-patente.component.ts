@@ -7,8 +7,7 @@ import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-agregar-patente',
-  templateUrl: './agregar-patente.component.html',
-  styleUrls: ['./agregar-patente.component.scss']
+  templateUrl: './agregar-patente.component.html'
 })
 export class AgregarPatenteComponent implements OnInit {
 

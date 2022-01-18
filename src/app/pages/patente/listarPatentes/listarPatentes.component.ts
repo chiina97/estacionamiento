@@ -136,10 +136,8 @@ export class EstacionamientoComponent implements OnInit {
   }
   
   crearHistorial():void{
-    let fechaActual = new Date();
-    let fechaFormateada=fechaActual.toLocaleDateString()
-    let fechaYhora=fechaFormateada +" " +fechaActual.toLocaleTimeString();
-    const historial=new Historial("Consumo",fechaYhora,this.estacionamiento.importe,this.usuario.cuentaCorriente.saldo,this.usuario.cuentaCorriente.id);
+    let cuentaActual=this.usuario.cuentaCorriente.saldo-this.estacionamiento.importe;
+    const historial=new Historial("Consumo",this.estacionamiento.importe,cuentaActual,this.usuario.cuentaCorriente.id);
     this.historialService.create(historial)
     .subscribe({
       next:()=>{}});
@@ -148,7 +146,7 @@ export class EstacionamientoComponent implements OnInit {
    
 
   obtenerInfoUsuario(){
-    this.usuarioService.get(this.tokenService.getIdUser())
+    this.usuarioService.findById(this.tokenService.getIdUser())
     .subscribe(
       data =>{
         this.usuario=data;
@@ -167,10 +165,11 @@ export class EstacionamientoComponent implements OnInit {
   }
 
   
-  eliminar(id:number):void{
-    this.patenteService.delete(id)
+  eliminar(patente:Patente):void{
+    if (confirm("¿Estás seguro de eliminar la patente "+ patente.patente + "?")) {
+    this.patenteService.delete(patente.id)
     .subscribe({
-      next:(data) => {
+      next:() => {
 
         this.toastr.success('', 'Patente Eliminada', {
           timeOut: 3000, positionClass: 'toast-top-center'
@@ -184,5 +183,5 @@ export class EstacionamientoComponent implements OnInit {
       }
     })
   }
-
+  }
 }
