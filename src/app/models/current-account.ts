@@ -1,5 +1,5 @@
 export class CurrentAccount {
-    id!:number;
-    phone!:number;
-    balance!:number;
+  id!: number;
+  phone!: number;
+  balance!: number;
 }

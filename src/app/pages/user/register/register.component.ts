@@ -8,44 +8,42 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
 })
 export class RegisterComponent implements OnInit {
-  
+  user: User = new User();
 
-    user:User= new User();
-   
-    isLogged = false;
-
+  isLogged = false;
 
   // Inject the router so we can navigate after a successful login
   constructor(
     private readonly router: Router,
-    private userService:UserService,
+    private userService: UserService,
     private tokenService: TokenService,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService
+  ) {}
 
-    ngOnInit() {
-      if (this.tokenService.getToken()) {
-        this.isLogged = true;
-      }
+  ngOnInit() {
+    if (this.tokenService.getToken()) {
+      this.isLogged = true;
     }
+  }
 
-  create():void{
-   this.userService.create(this.user)
-   .subscribe({
-    next: () => {
-    this.toastr.success('Por favor inicie sesión', 'Cuenta creada!', {
-      timeOut: 3000, positionClass: 'toast-top-center'
-    }); 
-    this.router.navigate(['/login'])
-   },
-   error: (err) => {
-    this.toastr.error(err.error.mensaje, 'Error', {
-      timeOut: 3000,  positionClass: 'toast-top-center',
+  create(): void {
+    this.userService.create(this.user).subscribe({
+      next: () => {
+        this.toastr.success('Por favor inicie sesión', 'Cuenta creada!', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+        });
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        this.toastr.error(err.error.mensaje, 'Error', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+        });
+      },
     });
   }
-  });
-  }
-
 }

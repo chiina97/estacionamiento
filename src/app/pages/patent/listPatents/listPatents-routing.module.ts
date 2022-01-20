@@ -4,13 +4,16 @@ import { UserGuard } from 'src/app/guards/user.guard';
 import { ListPatentsComponent } from './listPatents.component';
 
 const routes: Routes = [
-{ path: '', component: ListPatentsComponent , 
-canActivate: [UserGuard], data:{expectedRol: ['user'] }
-}
+  {
+    path: '',
+    component: ListPatentsComponent,
+    canActivate: [UserGuard],
+    data: { expectedRol: ['user'] },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ListPatentsRoutingModule { }
+export class ListPatentsRoutingModule {}

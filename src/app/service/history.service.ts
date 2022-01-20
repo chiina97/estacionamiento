@@ -4,18 +4,14 @@ import { Observable } from 'rxjs';
 import { History } from '../models/history';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HistoryService {
-  historyURL="http://localhost:8080/history"; 
+  historyURL = 'http://localhost:8080/history';
 
-  constructor(private http:HttpClient) {  }
+  constructor(private http: HttpClient) {}
 
-
-
-  public findAllById(id:number):Observable<History[]>{
-    return this.http.get<History[]>(this.historyURL+'/'+id);
+  public findAllById(id: number): Observable<History[]> {
+    return this.http.get<History[]>(this.historyURL + '/' + id);
   }
-
- 
 }

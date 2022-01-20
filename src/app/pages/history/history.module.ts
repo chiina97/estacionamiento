@@ -7,15 +7,8 @@ import { HistoryComponent } from './history.component';
 //paginacion
 import { NgxPaginationModule } from 'ngx-pagination';
 
-
 @NgModule({
-  declarations: [
-    HistoryComponent
-  ],
-  imports: [
-    CommonModule,
-    HistoryRoutingModule,
-    NgxPaginationModule
-  ]
+  declarations: [HistoryComponent],
+  imports: [CommonModule, HistoryRoutingModule, NgxPaginationModule],
 })
-export class HistoryModule { }
+export class HistoryModule {}

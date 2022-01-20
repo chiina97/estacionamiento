@@ -1,45 +1,43 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-const TOKEN_KEY='AuthToken';
+const TOKEN_KEY = 'AuthToken';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenService {
+  roles: Array<string> = [];
 
-  roles:Array<string>=[];
-  
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   public setToken(token: string): void {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);
   }
 
-  public getToken():string {
-    return localStorage.getItem(TOKEN_KEY)!
+  public getToken(): string {
+    return localStorage.getItem(TOKEN_KEY)!;
   }
- //obtiene el telefono del usuario
+  //obtiene el telefono del usuario
   public getUser(): any {
     if (!this.isLogged()) {
       return null;
     }
     const token = this.getToken();
-    const payload = token.split('.')[1];//acá estan los datos del usuario
+    const payload = token.split('.')[1]; //acá estan los datos del usuario
     const payloadDecoded = atob(payload);
     const values = JSON.parse(payloadDecoded);
     const telefono = values.sub;
     return telefono;
   }
 
- 
   public getIdUser(): any {
     if (!this.isLogged()) {
       return null;
     }
     const token = this.getToken();
-    const payload = token.split('.')[1];//acá estan los datos del usuario
+    const payload = token.split('.')[1]; //acá estan los datos del usuario
     const payloadDecoded = atob(payload);
     const values = JSON.parse(payloadDecoded);
     const telefono = values.jti;
@@ -60,7 +58,7 @@ export class TokenService {
     }
     return true;
   }
-  
+
   public isLogged(): boolean {
     if (this.getToken()) {
       return true;
@@ -70,6 +68,6 @@ export class TokenService {
   public logOut(): void {
     window.localStorage.clear();
     this.router.navigate(['/login']);
-   // window.location.reload();
+    // window.location.reload();
   }
 }

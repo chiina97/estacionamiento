@@ -4,12 +4,15 @@ import { UserGuard } from 'src/app/guards/user.guard';
 import { UpdateAccountComponent } from './update-account.component';
 
 const routes: Routes = [
-  { path: '', component: UpdateAccountComponent , 
-  canActivate: [UserGuard], data:{expectedRol: ['user'] }
-  }
-  ];
+  {
+    path: '',
+    component: UpdateAccountComponent,
+    canActivate: [UserGuard],
+    data: { expectedRol: ['user'] },
+  },
+];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UpdateAccountRoutingModule { }
+export class UpdateAccountRoutingModule {}

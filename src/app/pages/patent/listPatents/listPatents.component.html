@@ -1,12 +1,8 @@
-<!--faltan todas las rutas del crud de patente por eso te redige al login-->
-
-<div class="form-group" style="padding-top:0.2em;">
-
-  
-</div>
 <h3>Listado de patentes:
   <div style="float:right" > 
+
     <a class="btn btn-primary "  routerLink="/agregarPatente">Agregar Patente</a> 
+
     <button class="btn btn-dark ml-2" (click)="checkParking('')" 
     [disabled]="!startedParking ">Finalizar Estacionamiento <i class="fas fa-stop"></i>
   </button>
@@ -15,7 +11,9 @@
 </h3>
  
 
-<h6 >Saldo Disponible: {{balance}} <a class="btn btn-info ml-2" [routerLink]="['/editarCuenta', userId ]" >Cargar </a></h6>
+<h6 >Saldo Disponible: {{balance}} 
+  <a class="btn btn-info ml-2" [routerLink]="['/editarCuenta', userId ]" >Cargar </a>
+</h6>
  
   
 <div *ngIf="patents.length > 0">
@@ -38,8 +36,11 @@
         
       <td>{{patent.patent}}</td>
       <td>
-        <button [disabled]="this.startedParking" class="btn btn-success ml-2" (click)="checkParking(patent.patent)">
-          Iniciar <i class="fas fa-play"></i>
+        <button 
+        [disabled]="this.startedParking" 
+        class="btn btn-success ml-2" 
+        (click)="checkParking(patent.patent)">
+        Iniciar <i class="fas fa-play"></i>
         </button>
       </td>
         <td>
@@ -53,14 +54,13 @@
   
   <pagination-controls  previousLabel="Anterior"
   nextLabel="Siguiente" (pageChange)="page = $event"></pagination-controls>
+
 </div>
 <div *ngIf="patents.length == 0">
  <div class="card mb-3 ">
   <div class="card-body">
     <h5 class="card-title">No se encuentran patentes registradas</h5>
-    <p class="card-text">Por favor, registre una patente para administrar su estacionamiento.</p>
-    
+    <p class="card-text">Por favor, registre una patente para administrar su estacionamiento.</p>   
   </div>
-   
-</div>
+ </div>
 </div>

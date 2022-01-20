@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   patentURL: 'http://localhost:8080/patent',
-  authURL: 'http://localhost:8080/user'
+  authURL: 'http://localhost:8080/user',
 };
 
 /*

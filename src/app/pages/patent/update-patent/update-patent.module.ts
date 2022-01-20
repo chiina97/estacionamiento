@@ -5,15 +5,8 @@ import { UpdatePatentRoutingModule } from './update-patent-routing.module';
 import { UpdatePatentComponent } from './update-patent.component';
 import { FormsModule } from '@angular/forms'; //para usar ngModel
 
-
 @NgModule({
-  declarations: [
-    UpdatePatentComponent
-  ],
-  imports: [
-    CommonModule,
-    UpdatePatentRoutingModule,
-    FormsModule
-  ]
+  declarations: [UpdatePatentComponent],
+  imports: [CommonModule, UpdatePatentRoutingModule, FormsModule],
 })
-export class UpdatePatentModule { }
+export class UpdatePatentModule {}

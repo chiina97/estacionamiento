@@ -6,16 +6,8 @@ import { RegisterComponent } from './register.component';
 
 import { FormsModule } from '@angular/forms'; //para usar ngModel
 
-
-
 @NgModule({
-  declarations: [
-    RegisterComponent
-  ],
-  imports: [
-    CommonModule,
-   RegisterRoutingModule,
-   FormsModule
-  ]
+  declarations: [RegisterComponent],
+  imports: [CommonModule, RegisterRoutingModule, FormsModule],
 })
-export class RegisterModule { }
+export class RegisterModule {}
