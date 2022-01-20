@@ -1,0 +1,48 @@
+<div class="container">
+        <div class="row">
+          <!-- This is a single column that is responsive -->
+          <div class="col-12 col-md-6 offset-md-3">
+            <div class="card">
+              <div class="card-header card text-white bg-primary mb-3">Cargar Saldo</div>
+              <div class="card-body">
+                <!-- The formGroup 'form' is defined in the component class -->
+                <form #quizForm='ngForm'>
+                  <div class="form-group">
+                    <label for="patente">Saldo</label>
+                    
+                    <!-- The formControlName defines the name of the field in the formGroup -->
+                    <input 
+                    name="balance" 
+                    [(ngModel)]="balance" 
+                    class="form-control" 
+                    required 
+                    placeholder="Ingrese el saldo a cargar"/>
+                  </div>
+                  *El saldo minimo debe ser de $100 
+                </form>
+              </div>
+              <div class="card-footer">
+                  <div class="d-flex justify-content-between ml-2">
+                  <!-- The button has a click handler, it will be disabled if the form is not valid -->
+                  <a 
+                  class="btn btn-secondary" 
+                  onclick="window.history.back();"
+                  type="submit">
+                 
+                  Cancelar
+                   </a>
+                  <button 
+                  (click)="update()" 
+                  type="submit" 
+                  [disabled] = '!quizForm.form.valid'
+                  class="btn btn-success ml-2">
+                   Guardar
+                  </button>
+                  </div>
+              </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        
+     

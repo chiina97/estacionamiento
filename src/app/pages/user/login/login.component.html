@@ -1,0 +1,55 @@
+<div class="d-flex flex-column h-100 justify-content-center mb-4">
+    <div class="container">
+      <div class="row">
+        <!-- This is a single column that is responsive -->
+        <div class="col-12 col-md-6 offset-md-3">
+          <div class="card">
+            <div class="card-header card text-white bg-primary mb-3">Iniciar Sesion</div>
+            <div class="card-body">
+              <!-- The formGroup 'form' is defined in the component class -->
+              <form #quizForm='ngForm'>
+                <div class="form-group">
+                  <label for="telefono">Telefono</label>
+                  <!-- The formControlName defines the name of the field in the formGroup -->
+                  <input 
+                  name="phone" 
+                  [(ngModel)]="user.phone"
+                  class="form-control"
+                  placeholder="Ingrese el telefono"
+                  required />
+                </div>
+                <div class="form-group">
+                  <label for="password">Clave</label>
+                  <input 
+                  name="password" 
+                  [(ngModel)]="user.password"
+                  type="password"  
+                  class="form-control"
+                  placeholder="Ingrese la clave"
+                  required />
+                </div>
+              </form>
+            
+            <div class="card-footer">
+              <div class="d-flex justify-content-between ml-2">
+                <a routerLink="/registrarse" class="ml-2 ">
+                  Registrate!
+                </a>
+                <!-- The button has a click handler, it will be disabled if the form is not valid -->
+                <button 
+                (click)="authenticate()"
+                [disabled] = '!quizForm.form.valid' 
+                type="submit" 
+                class="btn btn-success">
+                  Iniciar Sesion  
+                </button>
+              </div>
+            </div>         
+            </div>
+             
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+

@@ -1,0 +1,36 @@
+<h3>Historial:</h3>
+<div  *ngIf="history.length >0">
+ <div *ngFor="let h of history | paginate: {
+    itemsPerPage: 5,
+    currentPage: page,
+    totalItems: totalLength }">
+
+
+ <div  style="padding-top:2em; padding-left: 2em;">
+    <div style="float:right; color: gray;">
+     
+       {{h.date }} 
+     </div>
+  <div>
+  <h5>Tipo de operación: {{h.typeOperation}}</h5>
+  <p>Monto: ${{h.amount}}</p>
+  <p>Saldo: ${{h.previousBalance}} </p>
+    
+  </div>
+  <hr>
+
+  </div>
+  </div>
+  <pagination-controls  previousLabel="Anterior"
+  nextLabel="Siguiente" (pageChange)="page = $event"></pagination-controls>
+</div>
+
+
+ 
+  <div *ngIf="history.length == 0">
+    <div class="card mb-3 ">
+     <div class="card-body">
+       <h5 class="card-title">No se encuentran registrados ningún movimiento en esta cuenta</h5>
+       <p class="card-text">Podra visualizar su historial cuando realice movimientos.</p>
+       
+     </div>

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  patenteURL: 'http://localhost:8080/patente',
-  authURL: 'http://localhost:8080/usuario'
+  patentURL: 'http://localhost:8080/patent',
+  authURL: 'http://localhost:8080/user'
 };
 
 /*

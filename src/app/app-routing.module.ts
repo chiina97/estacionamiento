@@ -21,20 +21,20 @@ const routes: Routes = [
     },
     {
       path: 'estacionamiento',
-      loadChildren: () => import('./pages/patente/listarPatentes/listarPatentes.module').then(m => m.EstacionamientoModule),
+      loadChildren: () => import('./pages/patent/listPatents/listPatents.module').then(m => m.ListPatentsModule),
     },
     {
       path: 'registrarse',
-      loadChildren: () => import('./pages/usuario/registrarse/registrarse.module').then(m => m.RegistrarseModule),
+      loadChildren: () => import('./pages/user/register/register.module').then(m => m.RegisterModule),
     },
-    { path: 'login', loadChildren: () => import('./pages/usuario/login/login.module').then(m => m.LoginModule) },
-    { path: 'agregarPatente', loadChildren: () => import('./pages/patente/agregar-patente/agregar-patente.module').then(m => m.AgregarPatenteModule) }, 
+    { path: 'login', loadChildren: () => import('./pages/user/login/login.module').then(m => m.LoginModule) },
+    { path: 'agregarPatente', loadChildren: () => import('./pages/patent/create-patent/create-patent.module').then(m => m.CreatePatentModule) }, 
     //editar patente ruta:
-    { path: 'editar/:id', loadChildren: () => import('./pages/patente/editar-patente/editar-patente.module').then(m => m.EditarPatenteModule) },
-  { path: 'cuentaCorriente', loadChildren: () => import('./pages/cuenta-corriente/listar-cuenta/cuenta-corriente.module').then(m => m.CuentaCorrienteModule) },
-  { path: 'editarCuenta/:id', loadChildren: () => import('./pages/cuenta-corriente/editar-cuenta/editar-cuenta.module').then(m => m.EditarCuentaModule) }, 
+    { path: 'editar/:id', loadChildren: () => import('./pages/patent/update-patent/update-patent.module').then(m => m.UpdatePatentModule) },
+  { path: 'cuentaCorriente', loadChildren: () => import('./pages/current-account/show-current-account/current-account.module').then(m => m.CurrentAccountModule) },
+  { path: 'editarCuenta/:id', loadChildren: () => import('./pages/current-account/update-account/update-account.module').then(m => m.UpdateAccountModule) }, 
 
-  { path: 'historial', loadChildren: () => import('./pages/historial/historial.module').then(m => m.HistorialModule) },
+  { path: 'historial', loadChildren: () => import('./pages/history/history.module').then(m => m.HistoryModule) },
 ],
   
 },

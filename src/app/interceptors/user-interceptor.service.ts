@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS , HttpErrorResponse } from '@angular/common/http';
 import { Observable , throwError} from 'rxjs';
 import { TokenService } from '../service/token.service';
-import { UsuarioService } from '../service/usuario.service';
+import { UserService } from '../service/user.service';
 import { catchError, concatMap } from 'rxjs/operators';
 import { JwtDTO } from './../models/jwt-dto';
 
@@ -14,7 +14,7 @@ export class UserInterceptorService implements HttpInterceptor {
 
   constructor(
     private tokenService: TokenService,
-    private userService:UsuarioService) { }
+    private userService:UserService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -31,7 +31,6 @@ export class UserInterceptorService implements HttpInterceptor {
         if (err.status === 401) {
           const dto: JwtDTO = new JwtDTO(this.tokenService.getToken());
           return this.userService.refresh(dto).pipe(concatMap((data: any) => {
-            console.log('refreshing....');
             this.tokenService.setToken(data.token);
             intReq = this.addToken(req, data.token);
             return next.handle(intReq);
