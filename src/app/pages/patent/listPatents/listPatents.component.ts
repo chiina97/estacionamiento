@@ -115,20 +115,16 @@ export class ListPatentsComponent implements OnInit {
          timeOut: 3000, positionClass: 'toast-top-center'
        });
        setInterval(()=> window.location.reload(),1000)
-   },
-   error:(err)=>{
-    this.toastr.error(err.error.mensaje, 'Error', {
+    },
+      error:(err)=>{
+      this.toastr.error(err.error.mensaje, 'Error', {
       timeOut: 3000,  positionClass: 'toast-top-center',
-    });
+      });
    }
  });
-  
-  
    
   }
   
-  
-
  
 
   getInfoUser(){
