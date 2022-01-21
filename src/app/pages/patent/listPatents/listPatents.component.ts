@@ -44,10 +44,29 @@ export class ListPatentsComponent implements OnInit {
     this.checkStartedParking();
   }
 
+  getInfoUser() {
+    this.userService
+      .findCurrentAccountById(this.tokenService.getIdUser())
+      .subscribe((data: any) => {
+        this.account = data;
+        this.balance = data.balance;
+      });
+  }
+
+  listAllPatents(): void {
+    this.patentService
+      .getAll(this.tokenService.getIdUser())
+      .subscribe((data) => {
+        this.patents = data;
+      });
+  }
+
   checkStartedParking() {
-    this.parkingService.existParkingOfUser(this.userId).subscribe((data) => {
-      this.startedParking = data; //devuelve true o false
-    });
+    this.parkingService
+      .existStartedParkingOfUser(this.userId)
+      .subscribe((data) => {
+        this.startedParking = data; //devuelve true o false
+      });
   }
 
   checkParking(patent: String): void {
@@ -100,23 +119,6 @@ export class ListPatentsComponent implements OnInit {
         });
       },
     });
-  }
-
-  getInfoUser() {
-    this.userService
-      .findCurrentAccountById(this.tokenService.getIdUser())
-      .subscribe((data: any) => {
-        this.account = data;
-        this.balance = data.balance;
-      });
-  }
-
-  listAllPatents(): void {
-    this.patentService
-      .getAll(this.tokenService.getIdUser())
-      .subscribe((data) => {
-        this.patents = data;
-      });
   }
 
   deleteById(patent: Patent): void {

@@ -22,10 +22,10 @@ export class CurrentAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInfoAccount();
-    this.infoUser(Number(this.tokenService.getIdUser()));
+    this.getInfoUser(Number(this.tokenService.getIdUser()));
   }
 
-  infoUser(id: number): void {
+  getInfoUser(id: number): void {
     this.userService.findById(id).subscribe((data) => {
       this.user = data;
     });

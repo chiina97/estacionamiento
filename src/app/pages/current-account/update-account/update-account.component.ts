@@ -55,7 +55,6 @@ export class UpdateAccountComponent implements OnInit {
             positionClass: 'toast-top-center',
           }
         );
-        window.history.back();
       },
       error: (err) => {
         this.toastr.error(err.error.mensaje, 'Error', {

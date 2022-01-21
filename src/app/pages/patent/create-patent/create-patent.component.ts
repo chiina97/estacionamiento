@@ -13,8 +13,8 @@ export class CreatePatentComponent implements OnInit {
   namePatent!: string;
   userId!: number;
 
-  expresiones = {
-    formato: /([a-zA-Z]{3}\d{3})|([a-zA-Z]{2}\d{3}[a-zA-Z]{2})/,
+  expressions = {
+    format: /([a-zA-Z]{3}\d{3})|([a-zA-Z]{2}\d{3}[a-zA-Z]{2})/,
   };
 
   constructor(
@@ -25,6 +25,7 @@ export class CreatePatentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
   create(): void {
     if (this.validateFormat(this.namePatent)) {
       this.userId = Number(this.tokenService.getIdUser()); //obtengo el id del usuario
@@ -52,7 +53,7 @@ export class CreatePatentComponent implements OnInit {
     //en validation[0] se almacena el valor que hizo coincidencia con la expresion.
     //si el valor almacenado es distinto de la patente entonces la patente ingresada
     //contiene mas caracteres que los pedidos en la expresion. Por lo tanto es incorrecta
-    const validation = patent.match(this.expresiones.formato);
+    const validation = patent.match(this.expressions.format);
     if (validation != null) {
       if (validation[0] == patent) {
         return true;

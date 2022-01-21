@@ -23,7 +23,7 @@ export class ParkingService {
     return this.http.get<any>(this.parkingURL + '/finishParking/' + id);
   }
 
-  public existParkingOfUser(id: number): Observable<any> {
+  public existStartedParkingOfUser(id: number): Observable<any> {
     return this.http.get<any>(this.parkingURL + '/existParkingOfUser/' + id);
   }
 }
