@@ -54,12 +54,10 @@ export class UpdatePatentComponent implements OnInit {
         this.router.navigate(['/estacionamiento']);
       },
       error: (err) => {
-        for (let e of err.error.errors) {
-          this.toastr.error(e, 'Error', {
-            timeOut: 3000,
-            positionClass: 'toast-top-center',
-          });
-        }
+        this.toastr.error(err.error.mensaje, 'Error', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+        });
       },
     });
   }

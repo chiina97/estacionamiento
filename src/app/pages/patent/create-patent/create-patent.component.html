@@ -23,8 +23,19 @@
                   </div>
                 <div class="card-footer">
                 <div class="form-group ">
-                  <div class="d-flex justify-content-between ml-2">
+                
+                  <div class="d-flex justify-content-between ml-2"><div>
+                    <a 
+                      class="btn btn-secondary" 
+                      onclick="window.history.back();"
+                      type="submit">
+                     
+                      Cancelar
+                       </a>
+                  </div>
+                  
                       <!-- The button has a click handler, it will be disabled if the form is not valid -->
+        
                       <button 
                       (click)="create()" 
                       type="submit"
