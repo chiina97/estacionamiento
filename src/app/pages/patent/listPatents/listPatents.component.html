@@ -4,7 +4,7 @@
     <a class="btn btn-primary "  routerLink="/agregarPatente">Agregar Patente</a> 
 
     <button class="btn btn-dark ml-2" (click)="checkParking('')" 
-    [disabled]="!startedParking ">Finalizar Estacionamiento <i class="fas fa-stop"></i>
+    [disabled]="!startedParking ">Finalizar Estacionamiento <i class="fas fa-stop"  style="color:red"></i>
   </button>
     
   </div>
@@ -40,7 +40,7 @@
         [disabled]="this.startedParking" 
         class="btn btn-success ml-2" 
         (click)="checkParking(patent.patent)">
-        Iniciar <i class="fas fa-play"></i>
+        Iniciar <i class="fas fa-play" ></i>
         </button>
       </td>
         <td>
