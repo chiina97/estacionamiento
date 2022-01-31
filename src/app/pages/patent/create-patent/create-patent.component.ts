@@ -10,7 +10,7 @@ import { TokenService } from 'src/app/service/token.service';
   templateUrl: './create-patent.component.html',
 })
 export class CreatePatentComponent implements OnInit {
-  namePatent!: string;
+  numberPatent!: string;
   userId!: number;
 
   expressions = {
@@ -27,9 +27,9 @@ export class CreatePatentComponent implements OnInit {
   ngOnInit(): void {}
 
   create(): void {
-    if (this.validateFormat(this.namePatent)) {
+    if (this.validateFormat(this.numberPatent)) {
       this.userId = Number(this.tokenService.getIdUser()); //obtengo el id del usuario
-      const patent = new Patent(this.namePatent, this.userId);
+      const patent = new Patent(this.numberPatent, this.userId);
 
       this.patentService.create(patent).subscribe({
         next: () => {

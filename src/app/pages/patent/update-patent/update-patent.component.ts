@@ -9,7 +9,7 @@ import { PatentService } from 'src/app/service/patent.service';
   templateUrl: './update-patent.component.html',
 })
 export class UpdatePatentComponent implements OnInit {
-  namePatent: String = '';
+  numberPatent: String = '';
   patent!: Patent;
 
   idPatent!: number;
@@ -30,7 +30,7 @@ export class UpdatePatentComponent implements OnInit {
   findById() {
     this.patentService.findById(this.idPatent).subscribe({
       next: (data) => {
-        this.namePatent = data.patent;
+        this.numberPatent = data.patent;
         this.patent = data;
       },
       error: (err) => {
@@ -44,7 +44,7 @@ export class UpdatePatentComponent implements OnInit {
   }
 
   update(): void {
-    this.patent.patent = this.namePatent;
+    this.patent.patent = this.numberPatent;
     this.patentService.update(this.idPatent, this.patent).subscribe({
       next: () => {
         this.toastr.success('', 'Patente Actualizada', {

@@ -1,19 +1,25 @@
-<div class="col-md-7  offset-md-2" style="padding-top:2em;">
-  <div class="card mb-3 ">
+<div class="col-md-7 offset-md-2" style="padding-top: 2em">
+  <div class="card mb-3">
     <div class="card-header">
       Mis Datos
-      <a class="btn btn-primary ml-2" routerLink="/historial" >Historial <i class="fas fa-history"></i></a>
-      <div style="float:right">
-       <strong>Saldo: ${{account?.balance}}</strong> 
-       <a class="btn btn-success ml-2" [routerLink]="['/editarCuenta', user?.id ]" >Cargar </a>
+      <a class="btn btn-primary ml-2" routerLink="/historial"
+        >Historial <i class="fas fa-history"></i
+      ></a>
+      <div style="float: right">
+        <strong>Saldo: ${{ account?.balance }}</strong>
+        <a
+          class="btn btn-success ml-2"
+          [routerLink]="['/editarCuenta', user?.id]"
+        >
+          Cargar <i class="fas fa-dollar-sign"></i
+        ></a>
       </div>
     </div>
     <div class="card-body">
       <h5 class="card-title">Usuario</h5>
-      <p class="card-text">{{user?.phone}}</p>
+      <p class="card-text">{{ user?.phone }}</p>
       <h5 class="card-title">Correo</h5>
-      <p class="card-text">{{user?.mail}}</p>
+      <p class="card-text">{{ user?.mail }}</p>
     </div>
-     
   </div>
 </div>

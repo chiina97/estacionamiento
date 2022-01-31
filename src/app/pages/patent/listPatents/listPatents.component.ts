@@ -7,6 +7,7 @@ import { ParkingService } from 'src/app/service/parking.service';
 import { Parking } from 'src/app/models/parking';
 import { UserService } from 'src/app/service/user.service';
 import { CurrentAccount } from 'src/app/models/current-account';
+import { TimePriceDTO } from 'src/app/models/timePrice';
 
 @Component({
   selector: 'app-listPatents',
@@ -16,6 +17,8 @@ export class ListPatentsComponent implements OnInit {
   patents: Patent[] = [];
   parking!: Parking;
   account!: CurrentAccount;
+  timePrice: TimePriceDTO = new TimePriceDTO('', 0, 0, 0);
+  interval: any;
 
   balance!: number;
   userId!: number;
@@ -42,6 +45,7 @@ export class ListPatentsComponent implements OnInit {
     this.getInfoUser();
     this.listAllPatents();
     this.checkStartedParking();
+    this.getTime();
   }
 
   getInfoUser() {
@@ -69,6 +73,23 @@ export class ListPatentsComponent implements OnInit {
       });
   }
 
+  getTime() {
+    this.parkingService
+      .existStartedParkingOfUser(this.userId)
+      .subscribe((data) => {
+        console.log('metodo get time');
+        clearInterval(this.interval);
+        this.interval = setInterval(() => this.getTime(), 60000);
+        this.parkingService.getTime(this.userId).subscribe({
+          next: (data: TimePriceDTO) => {
+            console.log('data', data);
+            this.timePrice = data;
+            this.startedParking = true;
+          },
+        });
+      });
+  }
+
   checkParking(patent: String): void {
     if (this.startedParking) {
       this.finalize();
@@ -86,6 +107,7 @@ export class ListPatentsComponent implements OnInit {
         this.parking = data;
         this.parkingId = this.parking.id;
         this.startedParking = true;
+        window.location.reload();
       },
       error: (err) => {
         this.toastr.error(err.error.mensaje, 'Error', {
@@ -99,6 +121,7 @@ export class ListPatentsComponent implements OnInit {
   finalize(): void {
     this.parkingService.finishParking(this.userId).subscribe({
       next: (data) => {
+        clearInterval(this.interval);
         this.parking = data;
         this.startedParking = false;
 

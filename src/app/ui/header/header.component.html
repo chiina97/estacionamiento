@@ -1,54 +1,57 @@
 <nav class="navbar navbar-dark bg-dark">
-    <!-- This is the application title with a link to the root -->
-    <a class="navbar-brand" routerLinkActive="active" routerLink="/">SEM</a>
-    <!-- This is a spacer so the links move to the end -->
-    <div class="mr-auto"></div>
-    <!-- This main navigation links are defined here -->
-    <div class="navbar-expand">
-      <div class="navbar-nav">
-        <!-- Each link has the routerLink property set to a different route -->
-        <a 
-        class="nav-item nav-link"  
-        routerLinkActive="active" 
-        routerLink="/home"> 
+  <!-- This is the application title with a link to the root -->
+  <a class="navbar-brand" routerLinkActive="active" routerLink="/">SEM</a>
+  <!-- This is a spacer so the links move to the end -->
+  <div class="mr-auto"></div>
+  <!-- This main navigation links are defined here -->
+  <div class="navbar-expand">
+    <div class="navbar-nav">
+      <!-- Each link has the routerLink property set to a different route -->
+      <a class="nav-item nav-link" routerLinkActive="active" routerLink="/home">
         Home
-       </a>
-        <a 
-        class="nav-item nav-link" 
-        *ngIf="!isLogged" 
-        routerLinkActive="active" 
-        routerLink="/registrarse">
+      </a>
+      <a
+        class="nav-item nav-link"
+        *ngIf="!isLogged"
+        routerLinkActive="active"
+        routerLink="/registrarse"
+      >
         Registrarse
       </a>
-        <a 
-        class="nav-item nav-link" 
-        *ngIf="!isLogged" 
-        routerLinkActive="active" 
-        routerLink="/login">
+      <a
+        class="nav-item nav-link"
+        *ngIf="!isLogged"
+        routerLinkActive="active"
+        routerLink="/login"
+      >
         Iniciar Sesion
       </a>
 
-        <a 
-        class="nav-item nav-link" 
-        *ngIf="isLogged" 
-        routerLinkActive="active" 
-        routerLink="/estacionamiento">
+      <a
+        class="nav-item nav-link"
+        *ngIf="isLogged"
+        routerLinkActive="active"
+        routerLink="/estacionamiento"
+      >
         Iniciar Estacionamiento
       </a>
-        <a 
-        class="nav-item nav-link" 
-        *ngIf="isLogged" 
-        routerLinkActive="active" 
-        routerLink="/cuentaCorriente">
+      <a
+        class="nav-item nav-link"
+        *ngIf="isLogged"
+        routerLinkActive="active"
+        routerLink="/cuentaCorriente"
+      >
         Cuenta
       </a>
-        <a 
-        class="nav-item nav-link" 
-        *ngIf="isLogged" 
+      <a
+        class="nav-item nav-link"
+        *ngIf="isLogged"
         routerLinkActive="active"
-        (click)="onLogOut()" 
-        type="reset">
-        Cerrar Sesion</a>
-      </div>
+        (click)="onLogOut()"
+        type="reset"
+      >
+        Cerrar Sesion
+      </a>
     </div>
-  </nav>
+  </div>
+</nav>

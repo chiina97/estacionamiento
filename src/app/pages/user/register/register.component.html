@@ -1,57 +1,65 @@
 <div class="d-flex flex-column h-100 justify-content-center mb-4">
-    <div class="container">
-      <div class="row">
-        <!-- This is a single column that is responsive -->
-        <div class="col-12 col-md-6 offset-md-3">
-          <div class="card">
-            <div class="card-header card text-white bg-primary mb-3">Registrarse</div>
-            <div class="card-body">
-              <!-- The formGroup 'form' is defined in the component class -->
-              <form #quizForm='ngForm'>
-                <div class="form-group">
-                  <label for="mail">Correo</label>
-                  <!-- The formControlName defines the name of the field in the formGroup -->
-                  <input 
-                  name="mail" 
+  <div class="container">
+    <div class="row">
+      <!-- This is a single column that is responsive -->
+      <div class="col-12 col-md-6 offset-md-3">
+        <div class="card">
+          <div class="card-header card text-white bg-primary mb-3">
+            Registrarse
+          </div>
+          <div class="card-body">
+            <!-- The formGroup 'form' is defined in the component class -->
+            <form #quizForm="ngForm">
+              <div class="form-group">
+                <label for="mail">Correo</label>
+                <!-- The formControlName defines the name of the field in the formGroup -->
+                <input
+                  name="mail"
                   [(ngModel)]="user.mail"
-                  type="email"   
-                  class="form-control" 
+                  type="email"
+                  class="form-control"
                   placeholder="Ingrese un correo ej usuario@gmail.com"
-                  required />
-                </div>
-                <div class="form-group">
-                  <label for="telefono">Telefono</label>
-                  <!-- The formControlName defines the name of the field in the formGroup -->
-                  <input 
-                  name="phone" 
-                  [(ngModel)]="user.phone" 
-                  class="form-control" 
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="telefono">Telefono</label>
+                <!-- The formControlName defines the name of the field in the formGroup -->
+                <input
+                  name="phone"
+                  [(ngModel)]="user.phone"
+                  class="form-control"
                   placeholder="Ingrese un telefono de 10 digitos sin ingresar el  0 y el 15"
-                  required/>
-                </div>
-                <div class="form-group">
-                  <label for="password">Clave</label>
-                  <input 
-                  name="password" 
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="password">Clave</label>
+                <input
+                  name="password"
                   [(ngModel)]="user.password"
-                  type="password"  
-                  class="form-control" 
+                  type="password"
+                  class="form-control"
                   placeholder="Ingrese una clave"
-                  required/>
-                </div>
-              </form>
-            </div>
-            <div class="card-footer">
-              <div class="form-group ">
-                <div class="d-flex justify-content-between ml-2"><div></div>
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <div class="form-group">
+              <div class="d-flex justify-content-between ml-2">
+                <div></div>
                 <!-- The button has a click handler, it will be disabled if the form is not valid -->
-                <button 
-                (click)="create()" 
-                type="submit"
-                [disabled] = '!quizForm.form.valid' 
-                class="btn btn-success">
-                 Registrarse  
+                <button
+                  (click)="create()"
+                  type="submit"
+                  [disabled]="!quizForm.form.valid"
+                  class="btn btn-success"
+                >
+                  Registrarse
                 </button>
+              </div>
             </div>
           </div>
         </div>
