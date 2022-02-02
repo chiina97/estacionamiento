@@ -68,11 +68,11 @@
         <h5 class="card-title">Estacionamiento Iniciado:</h5>
         <hr />
         <p class="card-text">
-          Patente: {{ timePrice.patent }}
+          Patente: {{ timePrice?.patent }}
           <br />
-          Tiempo: {{ timePrice.hours }}:{{ timePrice.minutes }} hs
+          Tiempo: {{ timePrice?.hours }}:{{ timePrice?.minutes }} hs
           <br />
-          Costo: ${{ timePrice.price }}
+          Costo: ${{ timePrice?.price }}
         </p>
         <button
           class="btn btn-dark ml-2"

@@ -69,7 +69,7 @@ export class ListPatentsComponent implements OnInit {
     this.parkingService
       .existStartedParkingOfUser(this.userId)
       .subscribe((data) => {
-        this.startedParking = data; //devuelve true o false
+        this.startedParking = data; //devuelve true o false;
       });
   }
 
@@ -77,14 +77,14 @@ export class ListPatentsComponent implements OnInit {
     this.parkingService
       .existStartedParkingOfUser(this.userId)
       .subscribe((data) => {
-        console.log('metodo get time');
         clearInterval(this.interval);
         this.interval = setInterval(() => this.getTime(), 60000);
         this.parkingService.getTime(this.userId).subscribe({
           next: (data: TimePriceDTO) => {
-            console.log('data', data);
-            this.timePrice = data;
-            this.startedParking = true;
+            if (data != null) {
+              this.timePrice = data;
+              this.startedParking = true;
+            }
           },
         });
       });
@@ -107,6 +107,7 @@ export class ListPatentsComponent implements OnInit {
         this.parking = data;
         this.parkingId = this.parking.id;
         this.startedParking = true;
+        console.log('createParking', this.startedParking);
         window.location.reload();
       },
       error: (err) => {
@@ -124,7 +125,7 @@ export class ListPatentsComponent implements OnInit {
         clearInterval(this.interval);
         this.parking = data;
         this.startedParking = false;
-
+        console.log('finalizeParking', this.startedParking);
         this.toastr.success(
           'Se acredito el pago de ' + this.parking.amount + '$',
           'Pago acreditado!',
