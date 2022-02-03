@@ -3,6 +3,7 @@ export class User {
   password!: String;
   mail!: String;
   phone!: String;
+  username!: String;
   currentAcount!: {
     id: number;
     balance: number;

@@ -23,6 +23,17 @@
                 />
               </div>
               <div class="form-group">
+                <label for="username">Nombre de usuario</label>
+                <!-- The formControlName defines the name of the field in the formGroup -->
+                <input
+                  name="username"
+                  [(ngModel)]="user.username"
+                  class="form-control"
+                  placeholder="Ingrese el nombre de usuario"
+                  required
+                />
+              </div>
+              <div class="form-group">
                 <label for="telefono">Telefono</label>
                 <!-- The formControlName defines the name of the field in the formGroup -->
                 <input

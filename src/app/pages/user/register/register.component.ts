@@ -31,8 +31,8 @@ export class RegisterComponent implements OnInit {
 
   create(): void {
     this.userService.create(this.user).subscribe({
-      next: () => {
-        this.toastr.success('Por favor inicie sesión', 'Cuenta creada!', {
+      next: (data) => {
+        this.toastr.success('', data['mensaje'], {
           timeOut: 3000,
           positionClass: 'toast-top-center',
         });

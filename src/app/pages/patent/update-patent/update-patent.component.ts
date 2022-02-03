@@ -47,7 +47,6 @@ export class UpdatePatentComponent implements OnInit {
     this.patent.patent = this.numberPatent;
     this.patentService.update(this.idPatent, this.patent).subscribe({
       next: (data) => {
-        console.log(data);
         this.toastr.success('', data['mensaje'], {
           timeOut: 3000,
           positionClass: 'toast-top-center',

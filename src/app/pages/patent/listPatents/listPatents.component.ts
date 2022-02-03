@@ -123,7 +123,6 @@ export class ListPatentsComponent implements OnInit {
       next: (data) => {
         clearInterval(this.interval);
         this.startedParking = false;
-        console.log('data', data['mensaje']);
         this.toastr.success(' ', data['mensaje'], {
           timeOut: 3000,
           positionClass: 'toast-top-center',
