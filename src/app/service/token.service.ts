@@ -19,7 +19,7 @@ export class TokenService {
   public getToken(): string {
     return localStorage.getItem(TOKEN_KEY)!;
   }
-  //obtiene el telefono del usuario
+  //obtiene el telefono del usuario(user)
   public getUser(): any {
     if (!this.isLogged()) {
       return null;
@@ -28,8 +28,8 @@ export class TokenService {
     const payload = token.split('.')[1]; //acá estan los datos del usuario
     const payloadDecoded = atob(payload);
     const values = JSON.parse(payloadDecoded);
-    const telefono = values.sub;
-    return telefono;
+    const phone = values.sub;
+    return phone;
   }
 
   public getIdUser(): any {
@@ -40,8 +40,8 @@ export class TokenService {
     const payload = token.split('.')[1]; //acá estan los datos del usuario
     const payloadDecoded = atob(payload);
     const values = JSON.parse(payloadDecoded);
-    const telefono = values.jti;
-    return telefono;
+    const id = values.jti; //obtiene el id
+    return id;
   }
 
   public isAdmin(): boolean {

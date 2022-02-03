@@ -17,8 +17,8 @@ export class PatentService {
   }
 
   //post crea una Patent
-  create(patent: Patent): Observable<Patent> {
-    return this.http.post<Patent>(this.patentURL, patent);
+  create(patent: Patent): Observable<any> {
+    return this.http.post<any>(this.patentURL, patent);
   }
 
   //obtener una Patent
@@ -31,7 +31,7 @@ export class PatentService {
     return this.http.put<any>(this.patentURL + '/' + id, patent);
   }
   //elimino una Patent
-  delete(id: number): Observable<Patent> {
-    return this.http.delete<Patent>(this.patentURL + '/' + id);
+  delete(id: number): Observable<any> {
+    return this.http.delete<any>(this.patentURL + '/' + id);
   }
 }

@@ -107,7 +107,6 @@ export class ListPatentsComponent implements OnInit {
         this.parking = data;
         this.parkingId = this.parking.id;
         this.startedParking = true;
-        console.log('createParking', this.startedParking);
         window.location.reload();
       },
       error: (err) => {
@@ -123,17 +122,12 @@ export class ListPatentsComponent implements OnInit {
     this.parkingService.finishParking(this.userId).subscribe({
       next: (data) => {
         clearInterval(this.interval);
-        this.parking = data;
         this.startedParking = false;
-        console.log('finalizeParking', this.startedParking);
-        this.toastr.success(
-          'Se acredito el pago de ' + this.parking.amount + '$',
-          'Pago acreditado!',
-          {
-            timeOut: 3000,
-            positionClass: 'toast-top-center',
-          }
-        );
+        console.log('data', data['mensaje']);
+        this.toastr.success(' ', data['mensaje'], {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+        });
         setInterval(() => window.location.reload(), 1000);
       },
       error: (err) => {
@@ -150,8 +144,8 @@ export class ListPatentsComponent implements OnInit {
       confirm('¿Estás seguro de eliminar la patente ' + patent.patent + '?')
     ) {
       this.patentService.delete(patent.id).subscribe({
-        next: () => {
-          this.toastr.success('', 'Patente Eliminada', {
+        next: (data) => {
+          this.toastr.success('', data['mensaje'], {
             timeOut: 3000,
             positionClass: 'toast-top-center',
           });

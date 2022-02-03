@@ -32,8 +32,8 @@ export class CreatePatentComponent implements OnInit {
       const patent = new Patent(this.numberPatent, this.userId);
 
       this.patentService.create(patent).subscribe({
-        next: () => {
-          this.toastr.success('', 'La patente se creo correctamente!', {
+        next: (data) => {
+          this.toastr.success('', data['mensaje'], {
             timeOut: 3000,
             positionClass: 'toast-top-center',
           });
