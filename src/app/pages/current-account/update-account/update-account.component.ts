@@ -46,15 +46,12 @@ export class UpdateAccountComponent implements OnInit {
     const id = this.activatedRoute.snapshot.params['id'];
     this.account.balance = this.balance; //monto a cargar
     this.userService.updateAmount(id, this.account).subscribe({
-      next: () => {
-        this.toastr.success(
-          'Se acreditaron $' + this.balance,
-          'Saldo Acreditado!',
-          {
-            timeOut: 3000,
-            positionClass: 'toast-top-center',
-          }
-        );
+      next: (data) => {
+        console.log('data', data);
+        this.toastr.success('', data['mensaje'], {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+        });
         window.history.back();
       },
       error: (err) => {
