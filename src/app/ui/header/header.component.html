@@ -10,7 +10,7 @@
     <div class="navbar-nav">
       <!-- Each link has the routerLink property set to a different route -->
       <a class="nav-item nav-link" routerLinkActive="active" routerLink="/home">
-        Inicio
+        {{ "button.home" | translate }}
       </a>
       <a
         class="nav-item nav-link"
@@ -18,7 +18,7 @@
         routerLinkActive="active"
         routerLink="/registrarse"
       >
-        Registrarse
+        {{ "button.register" | translate }}
       </a>
       <a
         class="nav-item nav-link"
@@ -26,7 +26,7 @@
         routerLinkActive="active"
         routerLink="/login"
       >
-        Iniciar Sesion
+        {{ "button.login" | translate }}
       </a>
 
       <a
@@ -35,7 +35,7 @@
         routerLinkActive="active"
         routerLink="/estacionamiento"
       >
-        Gestionar Estacionamiento
+        {{ "button.manageParking" | translate }}
       </a>
       <a
         class="nav-item nav-link"
@@ -43,7 +43,7 @@
         routerLinkActive="active"
         routerLink="/cuentaCorriente"
       >
-        Cuenta
+        {{ "button.account" | translate }}
       </a>
       <a
         class="nav-item nav-link"
@@ -52,7 +52,7 @@
         (click)="onLogOut()"
         type="reset"
       >
-        Cerrar Sesion
+        {{ "button.logout" | translate }}
       </a>
     </div>
   </div>

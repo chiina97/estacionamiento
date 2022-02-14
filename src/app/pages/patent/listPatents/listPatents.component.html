@@ -1,16 +1,16 @@
 <div style="margin-left: 0.5rem">
   <h3>
-    <i class="fas fa-list"></i> Listado de patentes:
+    <i class="fas fa-list"></i> {{ "manageParking.title" | translate }}:
     <div style="float: right">
       <a class="btn btn-primary" routerLink="/agregarPatente">
-        Agregar Patente <i class="fas fa-plus"></i
+        {{ "button.addPatent" | translate }} <i class="fas fa-plus"></i
       ></a>
     </div>
   </h3>
 
   <strong>Saldo:</strong>${{ balance }}
   <a class="btn btn-primary ml-2" [routerLink]="['/editarCuenta', userId]"
-    >Cargar <i class="fas fa-dollar-sign"></i>
+    >{{ "button.addBalance" | translate }} <i class="fas fa-dollar-sign"></i>
   </a>
 </div>
 <div *ngIf="patents.length > 0">
@@ -18,9 +18,9 @@
     <table class="table">
       <thead class="thead-light">
         <tr>
-          <th scope="col">Patente</th>
-          <th scope="col">Estacionamiento</th>
-          <th scope="col">Acciones</th>
+          <th scope="col">{{ "manageParking.patent" | translate }}</th>
+          <th scope="col">{{ "manageParking.parking" | translate }}</th>
+          <th scope="col">{{ "manageParking.actions" | translate }}</th>
         </tr>
       </thead>
       <tbody>
@@ -42,7 +42,8 @@
               class="btn btn-success ml-2"
               (click)="checkParking(patent.patent)"
             >
-              Iniciar <i class="far fa-play-circle"></i>
+              {{ "button.start" | translate }}
+              <i class="far fa-play-circle"></i>
             </button>
           </td>
           <td>
@@ -50,10 +51,10 @@
               class="btn btn-warning ml-2"
               [routerLink]="['/editar', patent.id]"
             >
-              Editar <i class="far fa-edit"></i
+              {{ "button.update" | translate }} <i class="far fa-edit"></i
             ></a>
             <a class="btn btn-danger ml-2" (click)="deleteById(patent)">
-              Eliminar <i class="far fa-trash-alt"></i>
+              {{ "button.delete" | translate }} <i class="far fa-trash-alt"></i>
             </a>
           </td>
         </tr>
@@ -67,33 +68,38 @@
     >
       <div class="card-body">
         <h5 class="card-title">
-          Estacionamiento Iniciado:
+          {{ "manageParking.startedParking.title" | translate }}:
           <i class="fas fa-exclamation-triangle" style="color: red"></i>
         </h5>
         <hr />
         <p class="card-text">
-          <i class="fas fa-arrow-right" style="color: green"></i> Patente:
+          <i class="fas fa-arrow-right" style="color: green"></i>
+          {{ "manageParking.patent" | translate }}:
           {{ timePrice?.patent }}
           <br />
-          <i class="fas fa-stopwatch" style="color: dimgray"></i> Tiempo:
+          <i class="fas fa-stopwatch" style="color: dimgray"></i>
+          {{ "manageParking.startedParking.time" | translate }}:
           {{ timePrice?.hours }}:{{ timePrice?.minutes }}
           hs
           <br />
-          <i class="far fa-credit-card"></i> Costo: ${{ timePrice?.price }}
+          <i class="far fa-credit-card"></i>
+          {{ "manageParking.startedParking.amount" | translate }}: ${{
+            timePrice?.price
+          }}
         </p>
         <button
           class="btn btn-dark ml-2"
           (click)="checkParking('')"
           [disabled]="!startedParking"
         >
-          Finalizar
+          {{ "button.endParking" | translate }}
           <i class="fas fa-pause" style="color: red"></i>
         </button>
         <hr />
         <div style="color: grey">
-          Atención:
+          {{ "manageParking.startedParking.important.title" | translate }}:
           <br />
-          Debe finalizar el estacionamiento para editar/eliminar la patente
+          {{ "manageParking.startedParking.important.text" | translate }}
           {{ timePrice.patent }}
         </div>
       </div>
@@ -109,9 +115,11 @@
 <div *ngIf="patents.length == 0">
   <div class="card mb-3">
     <div class="card-body">
-      <h5 class="card-title">No se encuentran patentes registradas</h5>
+      <h5 class="card-title">
+        {{ "manageParking.noPatentList.title" | translate }}
+      </h5>
       <p class="card-text">
-        Por favor, registre una patente para administrar su estacionamiento.
+        {{ "manageParking.noPatentList.text" | translate }}
       </p>
     </div>
   </div>

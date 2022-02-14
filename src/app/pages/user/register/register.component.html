@@ -5,53 +5,59 @@
       <div class="col-12 col-md-6 offset-md-3">
         <div class="card">
           <div class="card-header card text-white bg-primary mb-3">
-            Registrarse
+            {{ "form.title.register" | translate }}
           </div>
           <div class="card-body">
             <!-- The formGroup 'form' is defined in the component class -->
             <form #quizForm="ngForm">
               <div class="form-group">
-                <label for="mail">Correo</label>
+                <label for="mail">{{ "form.mail.title" | translate }}</label>
                 <!-- The formControlName defines the name of the field in the formGroup -->
                 <input
                   name="mail"
                   [(ngModel)]="user.mail"
                   type="email"
                   class="form-control"
-                  placeholder="Ingrese un correo ej usuario@gmail.com"
+                  placeholder="{{ 'form.mail.placeholder' | translate }}"
                   required
                 />
               </div>
               <div class="form-group">
-                <label for="username">Nombre de usuario</label>
+                <label for="username">{{
+                  "form.username.title" | translate
+                }}</label>
                 <!-- The formControlName defines the name of the field in the formGroup -->
                 <input
                   name="username"
                   [(ngModel)]="user.username"
                   class="form-control"
-                  placeholder="Ingrese el nombre de usuario"
+                  placeholder="{{ 'form.username.placeholder' | translate }}"
                   required
                 />
               </div>
               <div class="form-group">
-                <label for="telefono">Telefono</label>
+                <label for="telefono">{{
+                  "form.phone.title" | translate
+                }}</label>
                 <!-- The formControlName defines the name of the field in the formGroup -->
                 <input
                   name="phone"
                   [(ngModel)]="user.phone"
                   class="form-control"
-                  placeholder="Ingrese un telefono de 10 digitos sin ingresar el  0 y el 15"
+                  placeholder="{{ 'form.phone.placeholder' | translate }}"
                   required
                 />
               </div>
               <div class="form-group">
-                <label for="password">Clave</label>
+                <label for="password">{{
+                  "form.password.title" | translate
+                }}</label>
                 <input
                   name="password"
                   [(ngModel)]="user.password"
                   type="password"
                   class="form-control"
-                  placeholder="Ingrese una clave"
+                  placeholder="{{ 'form.password.placeholder' | translate }}"
                   required
                 />
               </div>
@@ -68,7 +74,7 @@
                   [disabled]="!quizForm.form.valid"
                   class="btn btn-success"
                 >
-                  Registrarse
+                  {{ "button.register" | translate }}
                 </button>
               </div>
             </div>

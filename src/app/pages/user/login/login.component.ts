@@ -4,6 +4,7 @@ import { TokenService } from 'src/app/service/token.service';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/service/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { LocalizationService } from 'src/app/internationalization/localization.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
     private readonly router: Router,
     private userService: UserService,
     private tokenService: TokenService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private localService: LocalizationService
   ) {}
 
   ngOnInit(): void {}
@@ -31,7 +33,7 @@ export class LoginComponent implements OnInit {
         window.location.reload();
       },
       error: () => {
-        this.toastr.error('El telefono/contraseña es incorrecta', 'Error', {
+        this.toastr.error(this.localService.translate('error.login'), 'Error', {
           timeOut: 3000,
           positionClass: 'toast-top-center',
         });

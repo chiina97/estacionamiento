@@ -1,5 +1,5 @@
 <div style="margin-left: 0.5rem">
-  <h3>Historial <i class="fas fa-history"></i></h3>
+  <h3>{{ "history.title" | translate }} <i class="fas fa-history"></i></h3>
 </div>
 <div *ngIf="history.length > 0">
   <div
@@ -19,11 +19,11 @@
       </div>
       <div>
         <h5>
-          <i class="fas fa-arrow-right" style="color: green"></i> Tipo de
-          operación: {{ h.typeOperation }}
+          <i class="fas fa-arrow-right" style="color: green"></i>
+          {{ "history.typeOfOperation" | translate }}: {{ h.typeOperation }}
         </h5>
-        <p>Monto: ${{ h.amount }}</p>
-        <p>Saldo: ${{ h.previousBalance }}</p>
+        <p>{{ "history.amount" | translate }}: ${{ h.amount }}</p>
+        <p>{{ "addBalance.balance" | translate }}: ${{ h.previousBalance }}</p>
       </div>
       <hr />
     </div>

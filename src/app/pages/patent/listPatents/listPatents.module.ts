@@ -5,9 +5,15 @@ import { ListPatentsRoutingModule } from './listPatents-routing.module';
 import { ListPatentsComponent } from './listPatents.component';
 //paginacion
 import { NgxPaginationModule } from 'ngx-pagination';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ListPatentsComponent],
-  imports: [CommonModule, ListPatentsRoutingModule, NgxPaginationModule],
+  imports: [
+    CommonModule,
+    ListPatentsRoutingModule,
+    NgxPaginationModule,
+    TranslateModule,
+  ],
 })
 export class ListPatentsModule {}

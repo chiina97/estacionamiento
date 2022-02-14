@@ -1,0 +1,110 @@
+{
+    "home":{
+        "title":{
+            "login":"Welcome to SEM",
+            "logout":"SEM!"
+        },
+        "text":"The new SEM app will allow you to continue using the parking lot measured in La Plata as always but with a better user experience."
+    },
+
+    "form":{
+        "title":{
+            "login":"Login",
+            "register":"Register"
+        },
+
+        "mail":{
+            "title":"Mail",
+            "placeholder":"Enter an email for example user@gmail.com"
+        },
+        "username":{
+            "title":"Username",
+            "placeholder":"Enter an username"
+        },
+        "phone":{
+            "title":"Phone",
+            "placeholder":"Enter a 10-digit phone without entering the 0 and 15"
+        },
+        "password":{
+            "title":"Password",
+            "placeholder":"Enter a password"
+        }
+
+    },
+
+    "button":{
+        "home":"Home",
+        "manageParking":"Manage Parking",
+        "account":"Account",
+        "logout":"Logout",
+
+        "register":"Register",
+        "login":"Login",
+
+        "addPatent":"Add Patent",
+        "update":"Update",
+        "delete":"Delete",
+        "start":"Start",
+        "endParking":"End Parking",
+
+        "addBalance":"Add Balance",
+        
+        "cancel":"Cancel",
+        "save":"Save",
+
+        "history":"History"
+    },
+
+    "manageParking":{
+        "title":"Patent List",
+        "patent":"Patent",
+        "parking":"Parking",
+        "actions":"Actions",
+        "startedParking":{
+            "title":"Started Parking",
+            "time":"time",
+            "amount":"Amount",
+            "important":{
+                "title":"Important",
+                "text":"Must finish parking to edit/delete license plate"
+            }
+
+        },
+        "noPatentList":{
+            "title":"No registered patents found",
+            "text":"Please register a patent to manage your parking lot."
+        }
+    },
+    "addBalance":{
+        "title":"Add Balance",
+        "balance":"Balance",
+        "placeholder":"Enter an amount",
+        "note":"*Minimum balance must be $100 "
+    },
+
+    "patent":{
+        "title":{
+            "add":"Add Patent",
+            "update":"Update Patent"
+        },
+        "patent":"Patent",
+        "placeholder":"Enter a patent"
+    },
+    "account":{
+        "title":"Account",
+        "user":"User",
+        "mail":"Mail",
+        "accountNumber":"Account Number"
+    },
+    "history":{
+        "title":"History",
+        "typeOfOperation":"Type Of Operation",
+        "amount":"Amount"
+    },
+
+    "error":{
+        "formatPatent":"The patent must have the format 'AAA999' - 'AA000AA' ",
+        "login":"The phone/password is incorrect"
+    }
+
+}

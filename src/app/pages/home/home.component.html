@@ -2,22 +2,23 @@
   <div class="jumbotron">
     <h1 class="text-secondary">
       <div *ngIf="isLogged">
-        <h2>Bienvenido a SEM {{ username }}!</h2>
+        <h2>{{ "home.title.login" | translate }} {{ username }}!</h2>
       </div>
-      <div *ngIf="!isLogged"><h2>SEM!</h2></div>
+      <div *ngIf="!isLogged">
+        <h2>{{ "home.title.logout" | translate }}</h2>
+      </div>
     </h1>
     <p>
-      La nueva app de SEM, te permitirá continuar usando el estacionamiento
-      medido en La Plata como siempre pero con una mejor experiencia de usuario.
+      {{ "home.text" | translate }}
     </p>
     <hr />
     <div *ngIf="isLogged" class="row g-2">
       <button class="btn btn-secondary ml-2" routerLink="/cuentaCorriente">
-        Cuenta <i class="fas fa-user"></i>
+        {{ "button.account" | translate }} <i class="fas fa-user"></i>
       </button>
       <br />
       <button class="btn btn-primary ml-2" routerLink="/estacionamiento">
-        Gestionar Estacionamiento <i class="fas fa-cog"></i>
+        {{ "button.manageParking" | translate }} <i class="fas fa-cog"></i>
       </button>
     </div>
   </div>

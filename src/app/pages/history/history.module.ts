@@ -6,9 +6,15 @@ import { HistoryComponent } from './history.component';
 
 //paginacion
 import { NgxPaginationModule } from 'ngx-pagination';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [HistoryComponent],
-  imports: [CommonModule, HistoryRoutingModule, NgxPaginationModule],
+  imports: [
+    CommonModule,
+    HistoryRoutingModule,
+    NgxPaginationModule,
+    TranslateModule,
+  ],
 })
 export class HistoryModule {}

@@ -5,19 +5,19 @@
       <div class="col-12 col-md-6 offset-md-3">
         <div class="card">
           <div class="card-header card text-white bg-primary mb-3">
-            Agregar Patente
+            {{ "patent.title.add" | translate }}
           </div>
           <div class="card-body">
             <!-- The formGroup 'form' is defined in the component class -->
             <form #quizForm="ngForm">
               <div class="form-group">
-                <label for="patente">Patente</label>
+                <label for="patente">{{ "patent.patent" | translate }}</label>
                 <!-- The formControlName defines the name of the field in the formGroup -->
                 <input
                   name="patent"
                   [(ngModel)]="numberPatent"
                   class="form-control"
-                  placeholder="Ingrese una patente"
+                  placeholder="{{ 'patent.placeholder' | translate }}"
                   required
                 />
               </div>
@@ -32,7 +32,7 @@
                     onclick="window.history.back();"
                     type="submit"
                   >
-                    Cancelar
+                    {{ "button.cancel" | translate }}
                   </a>
                 </div>
 
@@ -44,7 +44,7 @@
                   [disabled]="!quizForm.form.valid"
                   class="btn btn-success"
                 >
-                  Crear
+                  {{ "button.save" | translate }}
                 </button>
               </div>
             </div>

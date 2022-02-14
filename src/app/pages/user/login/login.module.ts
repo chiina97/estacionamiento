@@ -4,9 +4,10 @@ import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { FormsModule } from '@angular/forms'; //para usar ngModel
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [LoginComponent],
-  imports: [CommonModule, LoginRoutingModule, FormsModule],
+  imports: [CommonModule, LoginRoutingModule, FormsModule, TranslateModule],
 })
 export class LoginModule {}

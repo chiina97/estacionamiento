@@ -4,13 +4,15 @@
     <div class="col-12 col-md-6 offset-md-3">
       <div class="card">
         <div class="card-header card text-white bg-primary mb-3">
-          Cargar Saldo
+          {{ "addBalance.title" | translate }}
         </div>
         <div class="card-body">
           <!-- The formGroup 'form' is defined in the component class -->
           <form #quizForm="ngForm">
             <div class="form-group">
-              <label for="patente">Saldo</label>
+              <label for="patente">{{
+                "addBalance.balance" | translate
+              }}</label>
 
               <!-- The formControlName defines the name of the field in the formGroup -->
               <input
@@ -18,10 +20,12 @@
                 [(ngModel)]="balance"
                 class="form-control"
                 required
-                placeholder="Ingrese el saldo a cargar"
+                placeholder="{{ 'addBalance.placeholder' | translate }}"
               />
             </div>
-            *El saldo minimo debe ser de $100
+            <div style="color: dimgray">
+              {{ "addBalance.note" | translate }}
+            </div>
           </form>
         </div>
         <div class="card-footer">
@@ -32,7 +36,7 @@
               onclick="window.history.back();"
               type="submit"
             >
-              Cancelar
+              {{ "button.cancel" | translate }}
             </a>
             <button
               (click)="update()"
@@ -40,7 +44,7 @@
               [disabled]="!quizForm.form.valid"
               class="btn btn-success ml-2"
             >
-              Guardar
+              {{ "button.save" | translate }}
             </button>
           </div>
         </div>
