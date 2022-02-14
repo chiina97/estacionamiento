@@ -1,12 +1,13 @@
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../service/language.service';
 import { LocalizationConfigService } from './localization-config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalizationService {
-  private _localeId: string = 'en-US'; // default
+  private _localeId: string = 'en'; // default
 
   /**
    * @constructor
@@ -17,7 +18,8 @@ export class LocalizationService {
   constructor(
     @Optional() @SkipSelf() private singleton: LocalizationService,
     private config: LocalizationConfigService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private languageService: LanguageService
   ) {
     if (this.singleton) {
       throw new Error(
@@ -31,9 +33,17 @@ export class LocalizationService {
    * Initialize the service.
    * @returns {Promise<void>}
    */
+  private getLanguage() {
+    this.languageService.getLanguage().subscribe((data) => {
+      let lan = data.split('_')[0];
+      localStorage.setItem('language', lan);
+    });
+  }
+
   public initService(): Promise<void> {
     // language code same as file name.
-    this._localeId = localStorage.getItem('language') || 'en-US';
+    this.getLanguage();
+    this._localeId = localStorage.getItem('language') || 'en';
     return this.useLanguage(this._localeId);
   }
 

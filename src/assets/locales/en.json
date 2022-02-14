@@ -105,6 +105,10 @@
     "error":{
         "formatPatent":"The patent must have the format 'AAA999' - 'AA000AA' ",
         "login":"The phone/password is incorrect"
-    }
+    },
 
+    "translate":{
+        "creditLoad":"Credit Load",
+        "creditConsumption":"Credit Consumption"
+    }
 }

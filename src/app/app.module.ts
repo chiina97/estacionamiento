@@ -46,7 +46,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     //i18n:
-    InternationalizationModule.forRoot({ locale_id: 'en-US' }), // iniating with default language: en-US
+    InternationalizationModule.forRoot({ locale_id: 'en' }), // iniating with default language: en
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

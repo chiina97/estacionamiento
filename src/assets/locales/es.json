@@ -1,0 +1,115 @@
+{
+    "home":{
+        "title":{
+            "login":"Bienvenido a SEM",
+            "logout":"SEM!"
+        },
+        "text":"La nueva app SEM te permitirá seguir usando el estacionamiento medido en La Plata como siempre pero con una mejor experiencia de usuario."
+    },
+
+    "form":{
+        "title":{
+            "login":"Iniciar Sesión",
+            "register":"Registrarse"
+        },
+
+        "mail":{
+            "title":"Correo",
+            "placeholder":"Ingrese un correo por ejemplo lucia@gmail.com"
+        },
+        "username":{
+            "title":"Nombre de usuario",
+            "placeholder":"Ingrese un nombre de usuario"
+        },
+        "phone":{
+            "title":"Telefono",
+            "placeholder":"Ingrese un telefono de 10 digitos sin contar el 0 y el 15"
+        },
+        "password":{
+            "title":"Contraseña",
+            "placeholder":"Ingrese una contraseña como minimo de 4 digitos"
+        }
+
+    },
+
+    "button":{
+        "home":"Inicio",
+        "manageParking":"Gestionar Estacionamiento",
+        "account":"Cuenta",
+        "logout":"Cerrar Sesión",
+
+        "register":"Registrarse",
+        "login":"Iniciar Sesión",
+
+        "addPatent":"Agregar Patente",
+        "update":"Actualizar",
+        "delete":"Eliminar",
+        "start":"Iniciar",
+        "endParking":"Finalizar Estacionamiento",
+
+        "addBalance":"Agregar Saldo",
+        
+        "cancel":"Cancelar",
+        "save":"Guardar",
+
+        "history":"Historial"
+    },
+
+    "manageParking":{
+        "title":"Lista de patentes",
+        "patent":"Patente",
+        "parking":"Estacionamiento",
+        "actions":"Acciones",
+        "startedParking":{
+            "title":"Estacionamiento Iniciado",
+            "time":"tiempo",
+            "amount":"costo",
+            "important":{
+                "title":"Importante",
+                "text":"Debe finalizar el estacionamiento para editar/eliminar la patente"
+            }
+
+        },
+        "noPatentList":{
+            "title":"No se encontraron patentes registradas",
+            "text":"Por favor registre una patente para administrar su estacionamiento."
+        }
+    },
+    "addBalance":{
+        "title":"Agregar Saldo",
+        "balance":"Saldo",
+        "placeholder":"Ingrese un monto",
+        "note":"*El monto minimo es de $100 "
+    },
+
+    "patent":{
+        "title":{
+            "add":"Agregar Patente",
+            "update":"Actualizar Patente"
+        },
+        "patent":"Patente",
+        "placeholder":"Ingrese una patente"
+    },
+    "account":{
+        "title":"Cuenta",
+        "user":"Usuario",
+        "mail":"Correo",
+        "accountNumber":"Número de cuenta"
+    },
+    "history":{
+        "title":"Historial",
+        "typeOfOperation":"Tipo de operación",
+        "amount":"Monto"
+    },
+
+    "error":{
+        "formatPatent":"La patente debe tener el formato 'AAA999' - 'AA000AA' ",
+        "login":"El telefono/contraseña ess incorrecto"
+    },
+
+    "translate":{
+        "creditLoad":"Carga de credito",
+        "creditConsumption":"Consumo de credito"
+    }
+
+}
