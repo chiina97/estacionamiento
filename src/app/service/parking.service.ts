@@ -15,10 +15,6 @@ export class ParkingService {
     return this.http.post<Parking>(this.parkingURL, parking);
   }
 
-  update(id: number, parking: Parking): Observable<any> {
-    return this.http.put<any>(this.parkingURL + '/' + id, parking);
-  }
-
   public finishParking(id: number): Observable<any> {
     return this.http.get<any>(this.parkingURL + '/finishParking/' + id);
   }
